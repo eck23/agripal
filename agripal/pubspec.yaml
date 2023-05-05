@@ -51,6 +51,7 @@ dependencies:
   animations: ^2.0.7
   weather: ^2.0.1
   geolocator: ^9.0.2
+  geocoding: ^2.1.0
   intl: ^0.17.0
   syncfusion_flutter_charts: ^21.2.3
 
@@ -91,6 +92,19 @@ flutter:
       - assets/lottie/login_icon.json
       - assets/images/agripal_logo.png
       - assets/images/farmer.jpg
+      - assets/images/cloud_moon_drizzles.png
+      - assets/images/cloud_sun_rain.png
+      - assets/images/cloudy.png
+      - assets/images/overcast.png
+      - assets/images/partly_cloudy.png
+      - assets/images/rain.png
+      - assets/images/sun.png
+      - assets/images/thunderstorm.png
+      - assets/images/thunderstorm_2.png
+      - assets/images/day.jpg
+      - assets/images/night.jpg
+      - assets/images/cloud_moon.png
+      - assets/images/cloud_moon_rain.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
