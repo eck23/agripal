@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class  AuthMethods  {
@@ -28,11 +29,10 @@ class  AuthMethods  {
             
           
             await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
-            // await  FirebaseFirestore.instance.collection("users").doc(value.user!.email).set({
-            // 'email':AuthMethods.auth.currentUser!.email,
-            // 'name' :AuthMethods.auth.currentUser!.displayName,
-            // 'peopleList':[]
-            // });
+            await  FirebaseFirestore.instance.collection("users").doc(value.user!.email).set({
+            'weatherLocations':[]
+            });
+
             // var letter=displayName.substring(0,1);
             // FirebaseFirestore.instance.collection("startsWith_$letter").doc().set({
             //   'email':email,
@@ -71,11 +71,11 @@ class  AuthMethods  {
 
     static Future changeName(String name)async{
          await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
-        //  FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.email).update(
-        //    {
-        //      'name':FirebaseAuth.instance.currentUser!.displayName
-        //    }
-        //  );
+         FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.email).update(
+           {
+             'name':FirebaseAuth.instance.currentUser!.displayName
+           }
+         );
 
     }
 

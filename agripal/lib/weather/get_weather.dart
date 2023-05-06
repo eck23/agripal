@@ -11,14 +11,16 @@ import 'get_location.dart';
 class GetWeather{
 
   //Function to get current weather by position
-  static getCurrentWeatherByPosition(Position position) async{
+  static getCurrentWeatherByPosition(double lat,double long,bool getFullData) async{
 
-        String url="https://api.open-meteo.com/v1/forecast?latitude=${position.latitude}&longitude=${position.longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,is_day,weathercode";
+        String url="https://api.open-meteo.com/v1/forecast?latitude=$lat&longitude=$long&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,is_day,weathercode";
     
         try{
+          
+          List<Placemark> placemarks = await placemarkFromCoordinates(lat,long);
+
           var response= await http.get(Uri.parse(url));
 
-          // print(response.body);
 
           if(response.statusCode!=200){
              return null;
@@ -26,17 +28,6 @@ class GetWeather{
           
           var data=jsonDecode(response.body);
 
-          // print(data["hourly"]["relativehumidity"]);
-
-          // for(String name in  data["hourly"].keys){
-          //   print(name);
-          // }
-          // print(data["current_weather"]["temperature"]);
-          // for(String time in data["hourly"]["time"]){
-          //   print(time+"\n");
-          // }
-
-          // print(data["hourly"]["weathercode"]);
 
           String dateTime=data["current_weather"]["time"].toString().replaceFirst("T"," ")+":00";
           
@@ -84,9 +75,24 @@ class GetWeather{
 
           int isDay=data["hourly"]["is_day"][isDayIndex];
 
-          currentWeather= Weather(dateTime:dateTime , temperature: temperature, humidity: humidity, windSpeed: windSpeed, weathercode: weathercode);
+          Weather currentWeather=Weather(dateTime:dateTime , temperature: temperature, humidity: humidity, windSpeed: windSpeed, weathercode: weathercode);
+          
+          
           currentWeather.isDay=isDay;
+
+          //return if only current weather is needed - for carosel  slider elements
+          if(!getFullData){
+                
+              return {'currentWeather':currentWeather,'placename':placemarks[0].locality,'country':placemarks[0].country};
+          }
+          
+
           currentWeather.hourlyWeather=hourlyWeather;
+          currentWeather;
+         
+          
+
+
 
           //Finding the weather of next seven days
           Map<String,dynamic> tempHourlyWeather;
@@ -148,11 +154,19 @@ class GetWeather{
               
           }
 
-          sevenDaysWeather=SevenDaysWeather(sevenDaysWeather: futureDaysWeatherList);
+          
+
+
+          SevenDaysWeather sevenDaysWeather=SevenDaysWeather(sevenDaysWeather: futureDaysWeatherList);
           
 
           
-          return "ok";
+          return {
+            "currentWeather":currentWeather,
+            "sevenDaysWeather":sevenDaysWeather,
+            "placename":placemarks[0].locality,
+            "country":placemarks[0].country
+          };
 
         }catch(e){
           
@@ -201,27 +215,16 @@ class GetWeather{
 
   }
 
-  //Function to set weather
-  static setWeather() async{
+//Function to set weather
+static setWeather() async{
     
 
       Position position = await  GetLocation.determinePosition();
-      
-      List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
 
-      // print("Lat :${position.latitude}, Long :${position.longitude},");
-      print("place :${placemarks[0].locality}, country :${placemarks[0].country},");
-
-      var result= await GetWeather.getCurrentWeatherByPosition(position);
+      var result= await GetWeather.getCurrentWeatherByPosition(position.latitude,position.longitude,true);
 
       
-      if(result!=null){
-      
-          placename=placemarks[0].locality!;
-          country=placemarks[0].country!;
-          return "ok";
-        
-      }
+      return result;
 
     
   }

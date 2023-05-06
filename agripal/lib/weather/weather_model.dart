@@ -29,8 +29,8 @@ class SevenDaysWeather{
   SevenDaysWeather({required this.sevenDaysWeather});
 }
 
-late SevenDaysWeather sevenDaysWeather;
-late Weather currentWeather;
-String placename="";
-String country="";
+// late SevenDaysWeather sevenDaysWeather;
+// late Weather currentWeather;
+// String placename="";
+// String country="";
 
