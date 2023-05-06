@@ -52,6 +52,8 @@ dependencies:
   weather: ^2.0.1
   geolocator: ^9.0.2
   geocoding: ^2.1.0
+  carousel_slider: ^4.2.1
+  weather_icons: ^3.0.0
   intl: ^0.17.0
   syncfusion_flutter_charts: ^21.2.3
 
@@ -105,6 +107,8 @@ flutter:
       - assets/images/night.jpg
       - assets/images/cloud_moon.png
       - assets/images/cloud_moon_rain.png
+      - assets/images/temperature.png
+      - assets/images/humidity.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

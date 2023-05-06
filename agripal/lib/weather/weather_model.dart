@@ -30,5 +30,7 @@ class SevenDaysWeather{
 }
 
 late SevenDaysWeather sevenDaysWeather;
-
+late Weather currentWeather;
+String placename="";
+String country="";
 

@@ -1,12 +1,16 @@
 import 'dart:convert';
 
 import 'package:agripal/weather/weather_model.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
+import '../values/asset_values.dart';
+import 'get_location.dart';
+
 class GetWeather{
 
-
+  //Function to get current weather by position
   static getCurrentWeatherByPosition(Position position) async{
 
         String url="https://api.open-meteo.com/v1/forecast?latitude=${position.latitude}&longitude=${position.longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,is_day,weathercode";
@@ -80,9 +84,9 @@ class GetWeather{
 
           int isDay=data["hourly"]["is_day"][isDayIndex];
 
-          Weather weather= Weather(dateTime:dateTime , temperature: temperature, humidity: humidity, windSpeed: windSpeed, weathercode: weathercode);
-          weather.isDay=isDay;
-          weather.hourlyWeather=hourlyWeather;
+          currentWeather= Weather(dateTime:dateTime , temperature: temperature, humidity: humidity, windSpeed: windSpeed, weathercode: weathercode);
+          currentWeather.isDay=isDay;
+          currentWeather.hourlyWeather=hourlyWeather;
 
           //Finding the weather of next seven days
           Map<String,dynamic> tempHourlyWeather;
@@ -148,7 +152,7 @@ class GetWeather{
           
 
           
-          return weather;
+          return "ok";
 
         }catch(e){
           
@@ -157,5 +161,69 @@ class GetWeather{
        
   }
 
+  //Function to get weather icon
+  static getWeatherIcon(int weathercode, String time){
+    
+    String weatherIcon;
+
+    int hour=int.parse(time.substring(0,time.length-2));
+    bool isDayIcon=(time.endsWith("am") && hour>5 && hour!=12) || (time.endsWith("pm")) && (hour<6 || hour==12) ? true:false;
+
+    print("time:$time isDayIcon :$isDayIcon weathercode:$weathercode");
+    switch(weathercode){
+      case 0:
+      case 1: weatherIcon= isDayIcon?sunny:partly_cloudy_night;
+              break;
+      case 2: weatherIcon= isDayIcon? partly_cloudy:partly_cloudy_night;
+              break;
+      case 3: weatherIcon=overcast;
+              break;
+      case 45:
+      case 48:
+      case 51: 
+      case 53:
+      case 55:
+      case 61: 
+      case 63: 
+      case 65:
+      case 80:
+      case 81:
+      case 82:weatherIcon=rain;
+              break;
+      case 95: 
+      case 96:
+      case 99:weatherIcon=thunderstorm;
+               break;
+      default: weatherIcon=sunny;
+               break;
+    }
+    return weatherIcon;
+
+  }
+
+  //Function to set weather
+  static setWeather() async{
+    
+
+      Position position = await  GetLocation.determinePosition();
+      
+      List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+
+      // print("Lat :${position.latitude}, Long :${position.longitude},");
+      print("place :${placemarks[0].locality}, country :${placemarks[0].country},");
+
+      var result= await GetWeather.getCurrentWeatherByPosition(position);
+
+      
+      if(result!=null){
+      
+          placename=placemarks[0].locality!;
+          country=placemarks[0].country!;
+          return "ok";
+        
+      }
+
+    
+  }
 
 }
