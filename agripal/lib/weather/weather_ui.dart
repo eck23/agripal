@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:agripal/weather/get_weather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 
@@ -20,26 +21,11 @@ class WeatherHome extends StatefulWidget{
 
 class _WeatherHomeState extends State<WeatherHome> {
 
-
-  bool locationIsSet=false;
-  Color weatherColor=Colors.blueAccent.shade700;
-
   var weather;
-
-  setWeather()async{
-
-     weather= await GetWeather.setWeather();
-
-     if(weather!=null){
-        
-        setState(() {});
-     }
-
-  }
 
   @override
   void initState() {
-    setWeather();
+    // setWeather();
     super.initState();
   }
 
@@ -50,11 +36,11 @@ class _WeatherHomeState extends State<WeatherHome> {
         return SafeArea(
           child: Scaffold(
         
-            body: FutureBuilder(
-              future: GetWeather.getCurrentWeatherByPosition(widget.lat, widget.long, false),
+            body: FutureBuilder<dynamic>(
+              future: GetWeather.getCurrentWeatherByPosition(widget.lat, widget.long, true),
               builder:((context, snapshot) {
 
-                    if(snapshot.connectionState==ConnectionState.done && snapshot.hasData){
+                    if(snapshot.hasData){
 
                         return SingleChildScrollView(
                         child: Column(
@@ -79,7 +65,7 @@ class _WeatherHomeState extends State<WeatherHome> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    ...weather['currentWeather'].hourlyWeather.map((hourlyData){
+                                    ...snapshot.data['currentWeather'].hourlyWeather.map((hourlyData){
                                       
                                       return Padding(
                                         padding: EdgeInsets.all(5.w),
@@ -124,7 +110,7 @@ class _WeatherHomeState extends State<WeatherHome> {
                                     ),
                                   ],
                                   rows: <DataRow>[
-                                      ...weather['sevenDaysWeather'].sevenDaysWeather.map((weather){
+                                      ...snapshot.data['sevenDaysWeather'].sevenDaysWeather.map((weather){
                               
                                           String weatherIcon=GetWeather.getWeatherIcon(weather.weathercode,"10am");
                                           return DataRow(
@@ -146,7 +132,10 @@ class _WeatherHomeState extends State<WeatherHome> {
                             ),
                       );
                     }else{
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child: Container(
+                        height: 150.h,
+                        width: 100.w,
+                        child: Lottie.asset("assets/lottie/weather_loading.json",fit: BoxFit.fill,)));
                     }
 
               }) 

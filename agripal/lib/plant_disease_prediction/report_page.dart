@@ -185,24 +185,35 @@ class _ReportPageState extends State<ReportPage> {
                         width: 140.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(30.r)),
+                          boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 2,
+                                blurRadius: 2,
+                                offset: Offset(0, 3), // changes position of shadow
+                          ),],
+                          image: DecorationImage(
+                            image: NetworkImage(widget.contents['supplement_image_url']),
+                            fit: BoxFit.fill
+                          )
                         ),
                       
-                      child:Image.network(
-                            widget.contents['supplement_image_url'],
-                            fit: BoxFit.fill,
-                            loadingBuilder: (BuildContext context, Widget child,
-                                ImageChunkEvent? loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
-                                ),
-                              );
-                            },
-                        ) ,
+                      // child:Image.network(
+                      //       widget.contents['supplement_image_url'],
+                      //       fit: BoxFit.fill,
+                      //       loadingBuilder: (BuildContext context, Widget child,
+                      //           ImageChunkEvent? loadingProgress) {
+                      //         if (loadingProgress == null) return child;
+                      //         return Center(
+                      //           child: CircularProgressIndicator(
+                      //             value: loadingProgress.expectedTotalBytes != null
+                      //                 ? loadingProgress.cumulativeBytesLoaded /
+                      //                     loadingProgress.expectedTotalBytes!
+                      //                 : null,
+                      //           ),
+                      //         );
+                      //       },
+                      //   ) ,
                     ),
                     Container(
                       height: 180.h,

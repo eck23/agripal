@@ -91,6 +91,8 @@ flutter:
       - assets/lottie/mob_plant.json
       - assets/lottie/swinging_plant.json
       - assets/lottie/grass.json
+      - assets/lottie/weather_loading.json
+      - assets/lottie/news_loading.json
       - assets/lottie/login_icon.json
       - assets/images/agripal_logo.png
       - assets/images/farmer.jpg

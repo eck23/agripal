@@ -1,1 +1,1 @@
-String weatherApiKey="4e9a44003e5144c0d5b53776c90582fc";
+String newsApiKey="d1c9e25bb2014569a10132c13083de83";

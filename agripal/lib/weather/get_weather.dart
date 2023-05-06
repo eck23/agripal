@@ -183,7 +183,7 @@ class GetWeather{
     int hour=int.parse(time.substring(0,time.length-2));
     bool isDayIcon=(time.endsWith("am") && hour>5 && hour!=12) || (time.endsWith("pm")) && (hour<6 || hour==12) ? true:false;
 
-    print("time:$time isDayIcon :$isDayIcon weathercode:$weathercode");
+    // print("time:$time isDayIcon :$isDayIcon weathercode:$weathercode");
     switch(weathercode){
       case 0:
       case 1: weatherIcon= isDayIcon?sunny:partly_cloudy_night;

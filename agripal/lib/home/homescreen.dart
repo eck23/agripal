@@ -1,6 +1,5 @@
 import 'package:agripal/auth/auth.dart';
 import 'package:agripal/home/news_and_weather_home.dart';
-import 'package:agripal/weather/weather_ui.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
