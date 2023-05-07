@@ -196,7 +196,7 @@ class _PlantDiseaseState extends State<PlantDisease>{
   }
 
 
-  loading() {
+loading() {
     showDialog(
       barrierDismissible: false,
       builder: (ctx) {

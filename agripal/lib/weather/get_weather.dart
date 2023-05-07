@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:agripal/datamanage/datamanage.dart';
 import 'package:agripal/weather/weather_model.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -79,21 +80,19 @@ class GetWeather{
           
           
           currentWeather.isDay=isDay;
-
+          currentWeather.lat=lat;
+          currentWeather.long=long;
+          currentWeather.placename=placemarks[0].locality!;
           //return if only current weather is needed - for carosel  slider elements
           if(!getFullData){
                 
-              return {'currentWeather':currentWeather,'placename':placemarks[0].locality,'country':placemarks[0].country};
+              return currentWeather;
           }
           
 
           currentWeather.hourlyWeather=hourlyWeather;
-          currentWeather;
          
           
-
-
-
           //Finding the weather of next seven days
           Map<String,dynamic> tempHourlyWeather;
 
@@ -164,8 +163,6 @@ class GetWeather{
           return {
             "currentWeather":currentWeather,
             "sevenDaysWeather":sevenDaysWeather,
-            "placename":placemarks[0].locality,
-            "country":placemarks[0].country
           };
 
         }catch(e){
@@ -216,17 +213,31 @@ class GetWeather{
   }
 
 //Function to set weather
-static setWeather() async{
+static setWeatherLocation() async{
     
 
       Position position = await  GetLocation.determinePosition();
-
-      var result= await GetWeather.getCurrentWeatherByPosition(position.latitude,position.longitude,true);
+      List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude,position.longitude);
+      var result= await DataManage.updateWeatherLocation({'lat':position.latitude,'long': position.longitude,'placename':placemarks[0].locality});
 
       
       return result;
 
     
+}
+  //for carousel slider
+  static getWeatherFromList(List postionList)async{
+
+    List<Weather> weatherList=[];
+
+    for(int i=0;i<postionList.length;i++){
+
+      Weather tempWeather= await GetWeather.getCurrentWeatherByPosition(postionList[i]['lat'], postionList[i]['long'], false);
+      weatherList.add(tempWeather);
+    }
+      
+
+    return weatherList;
   }
 
 }

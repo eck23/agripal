@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 class DataManage{
 
@@ -14,6 +14,7 @@ class DataManage{
         await FirebaseFirestore.instance.collection("users").doc("elsonck").update({
           'weatherLocations':FieldValue.arrayUnion([location])
         });
+        return "ok";
       }on FirebaseException catch(e){
         return "Error";
       }

@@ -22,8 +22,8 @@ class NewsConatiner extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-             height: 80.h,
-             width: MediaQuery.of(context).size.width*0.2,
+             height: 70.h,
+             width: MediaQuery.of(context).size.width*0.18,
              decoration: BoxDecoration(
                borderRadius: BorderRadius.circular(10.r),
                boxShadow: [

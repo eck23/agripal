@@ -1,16 +1,21 @@
-import 'package:agripal/datamanage/datamanage.dart';
+import 'package:agripal/common_widgets/common_widgets.dart';
 import 'package:agripal/news/getnews.dart';
+import 'package:agripal/provider/provider.dart';
+import 'package:agripal/values/asset_values.dart';
 import 'package:agripal/values/fonts.dart';
+import 'package:agripal/weather/get_weather.dart';
+import 'package:agripal/weather/weather_list.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import '../news/news_container.dart';
-import '../weather/get_location.dart';
 import '../weather/weather_conatiner.dart';
+import '../weather/weather_model.dart';
 
 class NewsAndWeatherHome extends StatefulWidget {
   @override
@@ -19,31 +24,12 @@ class NewsAndWeatherHome extends StatefulWidget {
 
 class _NewsAndWeatherHomeState extends State<NewsAndWeatherHome> {
 
-  bool locationIsSet=false;
-
   Color weatherColor=Colors.blueAccent.shade700;
   String backgroudImage="assets/images/night.jpg";
   List carouselElemets=[];
+  List<Weather> weatherList=[];
   
   var locationStream=FirebaseFirestore.instance.collection("users").doc("elsonck").snapshots();
-  
-  // setWeather()async{
-
-  //     var result= await GetWeather.setWeather();
-
-      
-  //     if(result!=null){
-        
-  //       setState(() {
-  //         locationIsSet=true;
-  //         carouselElemets.clear();
-  //         carouselElemets.add(WeatherContainer(currentWeather: result['currentWeather'], placename: placename, canNavigate: true,));
-  //         carouselElemets.add(addLocationContainer());
-  //         carouselElemets.addAll(sevenDaysWeather.sevenDaysWeather.map((weather) => WeatherContainer(placename: placename, currentWeather: weather,)));
-  //       });
-  //     }
-
-  // }
 
 
   @override
@@ -65,42 +51,59 @@ class _NewsAndWeatherHomeState extends State<NewsAndWeatherHome> {
                   if(snapshot.hasData){
                      
                     // print("hi hi hi hi");
-                    carouselElemets.clear();
-                     for(var item in snapshot.data!['weatherLocations']){
-                      
-                       carouselElemets.add(WeatherContainer(lat:item['lat'] ,long: item['long'], canNavigate: true));
-                     } 
-                      carouselElemets.add(addLocationContainer());
+                    
               
-                     return CarouselSlider(items: carouselElemets.map((items){
-                        return Builder(builder: (BuildContext){
-                          return items;
-                        });
-                      }).toList(),
-                    key: UniqueKey(),
-                    options: CarouselOptions(
-                    enlargeCenterPage: true,
-                    enableInfiniteScroll: true,
-                    viewportFraction: 0.85,
-                    aspectRatio: 2.0,
-                    initialPage: 1,
-                    //autoPlayAnimationDuration: Duration(seconds: 2),
-                    autoPlay:false,),
-                    );
-                  }else{
-                    return addLocationContainer();
-                  }
+                     return FutureBuilder(
+                       future: GetWeather.getWeatherFromList(snapshot.data!['weatherLocations']),
+                       builder:((context, AsyncSnapshot<dynamic> snapshot) {
+                          if(snapshot.hasData){
+                            carouselElemets.clear();
+                             for(var item in snapshot.data!){
+                      
+                               carouselElemets.add(WeatherContainer(currentWeather:item , canNavigate: true));
+                             } 
+                            carouselElemets.add(addLocationContainer());
+                            carouselElemets.add(adsContainer());
+                            weatherList=snapshot.data!;
+                            context.read<WeatherButtonProvider>().setWeatherLoaded(true);
+                            return carouselSlider();
+                        }else{
+    
+                           return  carouselSlider();
+                        }
 
+                
+                       }));    
                   
-                }
-              ),
+                  }else{
+                    carouselElemets.clear();
+                    carouselElemets.add(addLocationContainer());
+                    carouselElemets.add(adsContainer());
+                    return carouselSlider();
+                  }
+                }),
              ),
             
-            
-            SizedBox(height: 5.h,),
 
             Padding(
-              padding: EdgeInsets.all(20.w),
+                    padding:  EdgeInsets.only(top: 10.h,right: 10.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(onPressed: (){
+                           weatherList.isNotEmpty?
+                           Navigator.push(context, MaterialPageRoute(builder: ((context) => WeatherListUI(weatherList: weatherList,)))):
+                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No Locations Added")));
+                        } , 
+                        child: Text("More on Weather",style: GoogleFonts.josefinSans(fontSize: 15.sp),)),
+                        Icon(Icons.arrow_forward,size: 15.sp,color: Colors.blue,)
+                      ],
+                    ),
+              ),
+            
+
+            Padding(
+              padding: EdgeInsets.only(top: 12.h,left: 20.w,bottom: 20.h),
               child: Text("Stay Updated",style: font5,),
             ),
             //ElevatedButton(onPressed: () =>GetNews.getNews() , child: Text("get news"))
@@ -140,39 +143,119 @@ class _NewsAndWeatherHomeState extends State<NewsAndWeatherHome> {
 
 
   addLocationContainer(){
+      return InkWell(
+        onTap: ()async{
+          
+            loading(context, weather_loading);
+
+            var result = await GetWeather.setWeatherLocation();
+            // ignore: use_build_context_synchronously
+            Navigator.pop(context);
+
+            if(result=="ok") {
+              // ignore: use_build_context_synchronously
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Location Added")));
+            } else {
+              // ignore: use_build_context_synchronously
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Error in Adding Location")));
+            }
+        },
+        child: Container(
+            height: MediaQuery.of(context).size.height*0.2,
+            width: MediaQuery.of(context).size.width*0.9,
+            decoration: BoxDecoration(
+              color: Colors.amberAccent.shade400,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 2,
+                  spreadRadius: 1,
+                  offset: Offset(0.0, 2.0),
+                )
+              ],
+            ),
+          child: Center(
+            child: DefaultTextStyle(
+              style: GoogleFonts.pottaOne(fontSize: 25.sp,color: Colors.white,fontWeight: FontWeight.bold),
+              child: AnimatedTextKit(
+                repeatForever: true,
+                animatedTexts: [
+                  WavyAnimatedText("tap to"),
+                  ScaleAnimatedText('ADD LOCATIONS'),
+                  WavyAnimatedText("tap to"),
+                  ScaleAnimatedText('KNOW WEATHER'),
+                  WavyAnimatedText("tap to"),
+                  ScaleAnimatedText('STAY UPDATED'),
+                ],
+                onTap: () {
+                  print("Tap Event");
+                },
+              ),
+            ),
+          ),
+        ),
+      );
+  }
+
+  adsContainer(){
       return Container(
           height: MediaQuery.of(context).size.height*0.2,
           width: MediaQuery.of(context).size.width*0.9,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.blue.shade900,
             borderRadius: BorderRadius.circular(30),
-            border: Border.all(color: Colors.black,width: 2),
-            // image: DecorationImage(
-            //   image: AssetImage(backgroudImage),
-              
-            //   fit: BoxFit.cover,
-            // ),
             boxShadow: const [
               BoxShadow(
                 color: Colors.black26,
                 blurRadius: 2,
                 spreadRadius: 1,
-                // offset: Offset(0.0, 2.0),
+                offset: Offset(0.0, 2.0),
               )
             ],
           ),
         child: Center(
-          child: IconButton(
-            visualDensity: VisualDensity.compact,
-            onPressed: ()async{
-                 Position positon= await GetLocation.determinePosition();
-                 List<Placemark> placemarks = await placemarkFromCoordinates(positon.latitude, positon.longitude);
-                 print("Lat :${placemarks[0].locality}, Long :${placemarks[0].country},");
-                 DataManage.updateWeatherLocation({'lat':positon.latitude,'long':positon.longitude,'placename':placemarks[0].locality});
-            },
-            icon: Icon(Icons.add_location_alt_rounded,size: 50.w,color: Colors.blueAccent.shade700,),
-          )
+          child: DefaultTextStyle(
+            style: GoogleFonts.pottaOne(fontSize: 25.sp,color: Colors.white,fontWeight: FontWeight.bold),
+            child: AnimatedTextKit(
+              repeatForever: true,
+              animatedTexts: [
+                
+                ScaleAnimatedText('Powered By'),
+                RotateAnimatedText("Flutter"),
+                RotateAnimatedText("Firebase"),
+                RotateAnimatedText("News API"),
+                RotateAnimatedText("Open Meteo API"),
+              ],
+              onTap: () {
+                print("Tap Event");
+              },
+            ),
+          ),
         ),
       );
+  }
+
+   carouselSlider(){
+    return  CarouselSlider(
+              items: carouselElemets.map((items){
+              return Builder(
+                builder: (BuildContext){
+                      return items;
+                    });
+                  }).toList(),
+              key: UniqueKey(),
+              options: CarouselOptions(
+              enlargeCenterPage: true,
+              enableInfiniteScroll: true,
+              viewportFraction: 0.85,
+              aspectRatio: 2.0,
+              initialPage: carouselElemets.length-1 ,
+              pauseAutoPlayOnTouch: true,
+              autoPlayInterval: const Duration(seconds: 15),
+              //autoPlayAnimationDuration: Duration(seconds: 2),
+              autoPlay:true,),
+                                         
+          );
   }
 }

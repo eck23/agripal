@@ -21,7 +21,6 @@ class WeatherHome extends StatefulWidget{
 
 class _WeatherHomeState extends State<WeatherHome> {
 
-  var weather;
 
   @override
   void initState() {
@@ -36,9 +35,9 @@ class _WeatherHomeState extends State<WeatherHome> {
         return SafeArea(
           child: Scaffold(
         
-            body: FutureBuilder<dynamic>(
+            body: FutureBuilder(
               future: GetWeather.getCurrentWeatherByPosition(widget.lat, widget.long, true),
-              builder:((context, snapshot) {
+              builder:((context, AsyncSnapshot<dynamic>snapshot) {
 
                     if(snapshot.hasData){
 
@@ -49,11 +48,21 @@ class _WeatherHomeState extends State<WeatherHome> {
                               
                             Padding(
                               padding: EdgeInsets.only(left: 20.w,top: 20.h),
-                              child: Text("Today's Weather",style: font4,),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: (){
+                                      Navigator.pop(context);
+                                    },
+                                    icon: const Icon(Icons.arrow_back_ios),
+                                  ),
+                                  Text("Today's Weather",style: font4,),
+                                ],
+                              ),
                             ),
                             Padding(
                               padding: EdgeInsets.all(20.w),
-                              child: WeatherContainer(lat: widget.lat,long: widget.long,canNavigate: false),
+                              child: WeatherContainer(currentWeather: snapshot.data!['currentWeather'],canNavigate: false),
                             ),
                           
                           Padding(
