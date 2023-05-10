@@ -33,11 +33,6 @@ class  AuthMethods  {
             'weatherLocations':[]
             });
 
-            // var letter=displayName.substring(0,1);
-            // FirebaseFirestore.instance.collection("startsWith_$letter").doc().set({
-            //   'email':email,
-            //   'displayName':displayName
-            // });
            
         }on FirebaseException catch(e){
           return "Error";
@@ -61,8 +56,6 @@ class  AuthMethods  {
           return "Error";
       }
     }
-    // @override
-    // static Stream<String> get authStateChanges => auth.authStateChanges().map((user) => user!.uid);
 
     static Future signOut() async{
     

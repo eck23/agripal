@@ -32,9 +32,6 @@ class _WeatherListUIState extends State<WeatherListUI> {
           width: MediaQuery.of(context).size.width*0.9,
           child: ListView.builder(
             itemCount: widget.weatherList.length,
-            scrollDirection: Axis.vertical,
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
             itemBuilder: (context, index) {
               return Padding(
                 padding:  EdgeInsets.only(bottom: 8.h),

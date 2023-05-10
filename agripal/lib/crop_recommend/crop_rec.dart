@@ -96,18 +96,21 @@ callGetCrop() async{
   Widget build(BuildContext context) {
       return GestureDetector(
         onTap: ()=>FocusScope.of(context).requestFocus(new FocusNode()),
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.amber.shade400,
-            elevation: 10,
-            // shadowColor: Colors.orange.shade500,
-            title:Text('Crop Recommendation',style: GoogleFonts.dancingScript(color: Colors.black,fontSize: 25.sp,fontWeight: FontWeight.bold),),
-          ),
-          body:
+        child:
+        // Scaffold(
+        //   appBar: AppBar(
+        //     backgroundColor: Colors.white,
+        //     elevation: 0,
+        //     centerTitle: true,
+        //     // shadowColor: Colors.orange.shade500,
+        //     title:Text('Crop Recommendation',style: GoogleFonts.dancingScript(color: Colors.black,fontSize: 25.sp,fontWeight: FontWeight.bold),),
+        //   ),
+        //   backgroundColor: Colors.white,
+        //   body:
             Form(
               key: _formKey,
               child: Container(
-                height: MediaQuery.of(context).size.height *0.9,
+                height: MediaQuery.of(context).size.height *0.8,
                 width: MediaQuery.of(context).size.width ,
                 padding: EdgeInsets.only(top: MediaQuery.of(context).size.width *0.05, 
                                         bottom: MediaQuery.of(context).size.width *0.05,
@@ -116,7 +119,10 @@ callGetCrop() async{
                 
                 child: SingleChildScrollView(
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
+                      Text('Crop Recommendation',style: GoogleFonts.dancingScript(color: Colors.black,fontSize: 25.sp,fontWeight: FontWeight.bold),),
+                      SizedBox(height: 20.h),
                       fieldContainer("Enter Nitrogen",nitrogen),
                       fieldContainer("Enter Phosphorus",phosphorus),
                       fieldContainer("Enter Potassium",potassium),
@@ -146,7 +152,7 @@ callGetCrop() async{
                 ),
               )
                   )
-        ),
+      //  ),
       );
   }
 

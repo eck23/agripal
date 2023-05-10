@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:agripal/news/news_model.dart';
 import 'package:agripal/private_data/privatedata.dart';
 import 'package:http/http.dart' as http;
@@ -13,8 +12,7 @@ class GetNews{
     String fromdate= DateTime.now().subtract(Duration(days: 3)).toString().split(" ")[0].toString();
     
 
-    String url="https://newsapi.org/v2/everything?q=farming&from=$fromdate&to=$todate&sortBy=popularity&apiKey=$newsApiKey";
-
+    String url="https://newsapi.org/v2/everything?q=agriculture&from=$fromdate&to=$todate&language=en&sortBy=popularity&apiKey=$newsApiKey";
 
      try{
        var reponse = await http.get(Uri.parse(url));  
@@ -23,7 +21,7 @@ class GetNews{
           print("Failed");
           return null;
         }
-        // print(reponse.body);
+        print(reponse.body);
 
         Articles articles=Articles();
 

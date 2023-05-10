@@ -78,19 +78,26 @@ class _PlantDiseaseState extends State<PlantDisease>{
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.amber.shade300,
-        shadowColor: Colors.black,
-        elevation: 10,
-        title: Text('Plant Disease Detection',style: GoogleFonts.dancingScript(color: Colors.black,fontSize: 25.sp,fontWeight: FontWeight.bold),),
+    return 
+    // Scaffold(
+    //   appBar: AppBar(
+    //     centerTitle: true,
+    //     backgroundColor: Colors.white,
+    //     // shadowColor: Colors.black,
+    //     elevation: 0,
+    //     title: Text('Plant Disease Detection',style: GoogleFonts.dancingScript(color: Colors.black,fontSize: 25.sp,fontWeight: FontWeight.bold),),
 
-      ),
-      body: SingleChildScrollView(
+    //   ),
+    //   backgroundColor: Colors.white,
+    //   body: 
+      SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
             children: [
-              Container(width: double.infinity,height: 350.h,
+              SizedBox(height: 20.h,),
+              Text('Plant Disease Detection',style: GoogleFonts.dancingScript(color: Colors.black,fontSize: 25.sp,fontWeight: FontWeight.bold),),
+              SizedBox(height: 5.h,),
+              Container(width: double.infinity,height: 300.h,
                 child: Center(
                   child: Lottie.asset('assets/lottie/swinging_plant.json',height: 200.h,width: 200.w,fit: BoxFit.fill),
                 ),
@@ -116,9 +123,11 @@ class _PlantDiseaseState extends State<PlantDisease>{
           ),
 
            button(text: "Upload from Device", icon: Icons.upload,color: Colors.greenAccent.shade700,height: 30.h,width: 200.w,fontsize: 15.sp,radius: 25.r,function:()=>pickImage(capture: false)),
+
+          //  SizedBox(height: 20.h,),
           ]
         ),
-      )
+      //)
     );
   }
 

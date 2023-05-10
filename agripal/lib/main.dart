@@ -1,10 +1,8 @@
 import 'package:agripal/home/homescreen.dart';
-import 'package:agripal/provider/provider.dart';
 import 'package:agripal/welcome_ui/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 
 
@@ -24,18 +22,13 @@ class Agripal extends StatelessWidget {
    return  ScreenUtilInit(
       minTextAdapt: true,
       builder: (context, child) {
-        return MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => WeatherButtonProvider()),
-          ],
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Agripal',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
-            home: HomeScreen(),
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Agripal',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
           ),
+          home: SplashScreen(),
         );
       },
     );

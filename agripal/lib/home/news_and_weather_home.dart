@@ -1,6 +1,5 @@
 import 'package:agripal/common_widgets/common_widgets.dart';
 import 'package:agripal/news/getnews.dart';
-import 'package:agripal/provider/provider.dart';
 import 'package:agripal/values/asset_values.dart';
 import 'package:agripal/values/fonts.dart';
 import 'package:agripal/weather/get_weather.dart';
@@ -8,11 +7,11 @@ import 'package:agripal/weather/weather_list.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 import '../news/news_container.dart';
 import '../weather/weather_conatiner.dart';
 import '../weather/weather_model.dart';
@@ -29,7 +28,7 @@ class _NewsAndWeatherHomeState extends State<NewsAndWeatherHome> {
   List carouselElemets=[];
   List<Weather> weatherList=[];
   
-  var locationStream=FirebaseFirestore.instance.collection("users").doc("elsonck").snapshots();
+  var locationStream=FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.email).snapshots();
 
 
   @override
@@ -47,10 +46,10 @@ class _NewsAndWeatherHomeState extends State<NewsAndWeatherHome> {
               child: StreamBuilder(
                 stream: locationStream,
 
-                builder: (context, snapshot) {
-                  if(snapshot.hasData){
+                builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String,dynamic>>> snapshot) {
+                  if(snapshot.hasData ){
                      
-                    // print("hi hi hi hi");
+                    print(snapshot.data);
                     
               
                      return FutureBuilder(
@@ -65,7 +64,6 @@ class _NewsAndWeatherHomeState extends State<NewsAndWeatherHome> {
                             carouselElemets.add(addLocationContainer());
                             carouselElemets.add(adsContainer());
                             weatherList=snapshot.data!;
-                            context.read<WeatherButtonProvider>().setWeatherLoaded(true);
                             return carouselSlider();
                         }else{
     
@@ -250,7 +248,7 @@ class _NewsAndWeatherHomeState extends State<NewsAndWeatherHome> {
               enableInfiniteScroll: true,
               viewportFraction: 0.85,
               aspectRatio: 2.0,
-              initialPage: carouselElemets.length-1 ,
+              initialPage: 0 ,
               pauseAutoPlayOnTouch: true,
               autoPlayInterval: const Duration(seconds: 15),
               //autoPlayAnimationDuration: Duration(seconds: 2),
