@@ -66,6 +66,7 @@ class _ReportPageState extends State<ReportPage> {
             Navigator.pop(context);
           
            });
+           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Report Saved')));
         
         }else{
 
@@ -309,7 +310,7 @@ class _ReportPageState extends State<ReportPage> {
       floatingActionButton: widget.floatingButton?  FloatingActionButton(
         child: const Icon(Icons.save),
         backgroundColor: Colors.amber.shade400,
-        onPressed: ()=>uploadData(),
+        onPressed: () =>confirmDialog(context, "Upload Report ?", ()=>uploadData()),
       ):null,
     );
   }

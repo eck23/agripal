@@ -4,14 +4,13 @@ import 'package:agripal/datamanage/datamanage.dart';
 import 'package:agripal/home/news_and_weather_home.dart';
 import 'package:agripal/plant_disease_prediction/plant_disease.dart';
 import 'package:agripal/reports/reports_home.dart';
-import 'package:agripal/values/fonts.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:liquid_swipe/liquid_swipe.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

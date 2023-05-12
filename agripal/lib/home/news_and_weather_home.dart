@@ -31,6 +31,22 @@ class _NewsAndWeatherHomeState extends State<NewsAndWeatherHome> {
   var locationStream=DataManage.ref.snapshots();
 
 
+  addWeatherLocation()async{
+        dialogBox(context, weather_loading,true);
+
+            var result = await GetWeather.setWeatherLocation();
+            // ignore: use_build_context_synchronously
+            Navigator.pop(context);
+
+            if(result=="ok") {
+              // ignore: use_build_context_synchronously
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Location Added")));
+            } else {
+              // ignore: use_build_context_synchronously
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Error in Adding Location")));
+            }
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -142,22 +158,7 @@ class _NewsAndWeatherHomeState extends State<NewsAndWeatherHome> {
 
   addLocationContainer(){
       return InkWell(
-        onTap: ()async{
-          
-            dialogBox(context, weather_loading,true);
-
-            var result = await GetWeather.setWeatherLocation();
-            // ignore: use_build_context_synchronously
-            Navigator.pop(context);
-
-            if(result=="ok") {
-              // ignore: use_build_context_synchronously
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Location Added")));
-            } else {
-              // ignore: use_build_context_synchronously
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Error in Adding Location")));
-            }
-        },
+        onTap: ()=>confirmDialog(context, "Add current location?",()=>addWeatherLocation()),
         child: Container(
             height: MediaQuery.of(context).size.height*0.2,
             width: MediaQuery.of(context).size.width*0.9,
@@ -186,9 +187,7 @@ class _NewsAndWeatherHomeState extends State<NewsAndWeatherHome> {
                   WavyAnimatedText("tap to"),
                   ScaleAnimatedText('STAY UPDATED'),
                 ],
-                onTap: () {
-                  print("Tap Event");
-                },
+                
               ),
             ),
           ),

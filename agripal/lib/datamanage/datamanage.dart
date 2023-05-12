@@ -14,7 +14,9 @@ class DataManage{
       try{
         await DataManage.ref.update({
           'weatherLocations':FieldValue.arrayUnion([location])
-        });
+        }).timeout(Duration(seconds: 20),onTimeout: (() {
+          return "Error";
+        }));
 
         // await FirebaseFirestore.instance.collection("users").doc("elsonck").update({
         //   'weatherLocations':FieldValue.arrayUnion([location])
@@ -34,7 +36,9 @@ class DataManage{
       try{
         await DataManage.ref.update({
           'savedCropRecommendations':FieldValue.arrayUnion([data])
-        });
+        }).timeout(Duration(seconds: 20),onTimeout: (() {
+          return "Error";
+        }));
 
         return "ok";
 

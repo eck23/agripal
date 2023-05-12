@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 import '../common_widgets/common_widgets.dart';
+import '../datamanage/datamanage.dart';
 import '../values/asset_values.dart';
 import 'get_crop.dart';
 
@@ -91,6 +92,43 @@ callGetCrop() async{
    
 }
 
+void saveReport()async{
+
+  //for loading dialog
+  dialogBox(context,upload,true);
+
+    var result= await DataManage.saveCropRecommendation({
+      'nitrogen': double.parse(nitrogen.text),
+      'phosphorus': double.parse(phosphorus.text),
+      'potassium': double.parse(potassium.text),
+      'ph': double.parse(ph.text),
+      'rainfall': double.parse(rainfall.text),
+      'humidity': double.parse(humidity.text),
+      'temperature': double.parse(temperature.text),
+      'crop': response['crop'],
+      'time': DateTime.now().toString()
+  });
+
+  await Future.delayed(Duration(seconds: 1),(){
+
+        Navigator.pop(context);
+
+  });
+
+  if(result=="ok"){
+    dialogBox(context, done, false);
+
+    Future.delayed(Duration(seconds: 3),(){
+      Navigator.pop(context);
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Report Saved')));
+  
+  }
+  else{
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error occured')));
+  }
+}
 
 
 
@@ -230,8 +268,10 @@ callGetCrop() async{
                       title: 'Crop Recommendation',
                       desc: 'We recommend you to grow ${response['crop']}',
                       // showCloseIcon: true,
-                      // btnCancelOnPress: () {},
-                      btnOkOnPress: () {},
+                      btnCancelText: "Cancel",
+                      btnOkText: "Save Report",
+                      btnCancelOnPress: () {},
+                      btnOkOnPress: ()=>saveReport(),
                     ).show();
   }
 
