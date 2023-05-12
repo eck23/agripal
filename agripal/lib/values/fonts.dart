@@ -13,3 +13,7 @@ TextStyle font4=GoogleFonts.raleway(fontSize: 20.sp,fontWeight: FontWeight.bold,
 TextStyle font5=GoogleFonts.raleway(fontSize: 25.sp,fontWeight: FontWeight.bold,color: Colors.black);
 
 TextStyle font6=GoogleFonts.raleway(fontSize: 15.sp,fontWeight: FontWeight.w600,color: Colors.black);
+
+TextStyle font7 =GoogleFonts.dancingScript(color: Colors.black,fontSize: 25.sp,fontWeight: FontWeight.bold);
+
+TextStyle font8= GoogleFonts.josefinSans(fontSize: 20.sp,fontWeight: FontWeight.bold,color: Colors.white,);

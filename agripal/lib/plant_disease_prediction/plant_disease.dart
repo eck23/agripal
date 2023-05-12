@@ -1,6 +1,7 @@
 import 'dart:io';
-
 import 'package:agripal/plant_disease_prediction/predict_disease.dart';
+import 'package:agripal/values/asset_values.dart';
+import 'package:agripal/values/fonts.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,8 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
-
-import 'report_page.dart';
+import '../common_widgets/common_widgets.dart';
+import 'disease_report_page.dart';
 
 class PlantDisease extends StatefulWidget {
   @override
@@ -25,16 +26,16 @@ class _PlantDiseaseState extends State<PlantDisease>{
 
         
         Navigator.pop(context);
-        loading();
+        dialogBox(context,plant_loading,false);
 
         var response = await PredictPlantDisease.uploadImageToServer(image!);
 
-        await Future.delayed(const Duration(seconds: 2),(){
+        await Future.delayed(const Duration(seconds: 1),(){
           
           Navigator.pop(context);
           if(response!=null && response!="Error"){
             
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ReportPage(image: image!,contents: response,)));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ReportPage(image: image!,contents: response,floatingButton: true,)));
 
         }else{
             
@@ -95,7 +96,7 @@ class _PlantDiseaseState extends State<PlantDisease>{
           mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(height: 20.h,),
-              Text('Plant Disease Detection',style: GoogleFonts.dancingScript(color: Colors.black,fontSize: 25.sp,fontWeight: FontWeight.bold),),
+              Text('Plant Disease Detection',style: font7,),
               SizedBox(height: 5.h,),
               Container(width: double.infinity,height: 300.h,
                 child: Center(
@@ -204,16 +205,4 @@ class _PlantDiseaseState extends State<PlantDisease>{
     );
   }
 
-
-loading() {
-    showDialog(
-      barrierDismissible: false,
-      builder: (ctx) {
-        return Center(
-          child: Lottie.asset('assets/lottie/plant_anim.json'),
-        );
-      },
-      context: context,
-    );
-  }
 }

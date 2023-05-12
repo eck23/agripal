@@ -44,6 +44,7 @@ dependencies:
   firebase_auth: ^4.4.2
   firebase_core: ^2.10.0
   cloud_firestore: ^4.5.3
+  firebase_storage: ^11.1.2
   liquid_swipe: ^3.1.0
   animated_text_kit: ^4.2.2
   geolocator: ^9.0.2
@@ -90,6 +91,9 @@ flutter:
       - assets/lottie/weather_loading.json
       - assets/lottie/news_loading.json
       - assets/lottie/login_icon.json
+      - assets/lottie/upload.json
+      - assets/lottie/done.json
+      - assets/lottie/oopsie.json
       - assets/images/agripal_logo.png
       - assets/images/farmer.jpg
       - assets/images/cloud_moon_drizzles.png

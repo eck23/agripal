@@ -11,3 +11,7 @@ String thunderstorm="assets/images/thunderstorm_2.png";
 
 //lottie asssets
 String weather_loading="assets/lottie/weather_loading.json";
+String plant_loading="assets/lottie/plant_anim.json";
+String upload="assets/lottie/upload.json";
+String done="assets/lottie/done.json";
+String oopsie="assets/lottie/oopsie.json";

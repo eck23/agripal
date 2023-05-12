@@ -1,9 +1,13 @@
 import 'package:agripal/auth/auth.dart';
 import 'package:agripal/crop_recommend/crop_rec.dart';
+import 'package:agripal/datamanage/datamanage.dart';
 import 'package:agripal/home/news_and_weather_home.dart';
 import 'package:agripal/plant_disease_prediction/plant_disease.dart';
+import 'package:agripal/reports/reports_home.dart';
 import 'package:agripal/values/fonts.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,8 +29,14 @@ class _HomeScreenState extends State<HomeScreen>{
     Icons.newspaper,
     Icons.nature,
     Icons.agriculture,
-    Icons.person
+    Icons.content_paste_search_outlined
     ];
+
+    @override
+  void initState() {
+    DataManage.ref=FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.email);
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -50,7 +60,8 @@ class _HomeScreenState extends State<HomeScreen>{
         children: [
           NewsAndWeatherHome(),
           PlantDisease(),
-          CropRecommend()
+          CropRecommend(),
+          ReportsHome(),
         ],
       ),
       
@@ -60,11 +71,13 @@ class _HomeScreenState extends State<HomeScreen>{
       inactiveColor: Colors.white,
       activeIndex: currentIndex,
       gapLocation: GapLocation.center,
+      
       // leftCornerRadius: 50.r,
       // rightCornerRadius: 50.r,
       elevation: 5,
       notchSmoothness: NotchSmoothness.softEdge,
       backgroundColor: Colors.grey.shade900,
+      borderColor: Colors.black,
       gapWidth: 0,
       onTap: (index) => setState(() => currentIndex = index),
       //other params

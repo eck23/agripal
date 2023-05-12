@@ -30,7 +30,11 @@ class  AuthMethods  {
           
             await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
             await  FirebaseFirestore.instance.collection("users").doc(value.user!.email).set({
-            'weatherLocations':[]
+                
+                'weatherLocations':[],
+                'savedDiseasePredictions':[],
+                'savedCropRecommendations':[],
+
             });
 
            

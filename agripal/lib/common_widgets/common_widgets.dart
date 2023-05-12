@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:lottie/lottie.dart';
 
-loading(BuildContext context,String asset) {
+dialogBox(BuildContext context,String asset,bool adjustSize) {
     showDialog(
       barrierDismissible: false,
       builder: (ctx) {
         return Center(
-          child: Container(
-            height: 180.h,
-            width: 180.w,
-            child: Lottie.asset(asset)),
+          child:adjustSize? Container(
+            height: MediaQuery.of(context).size.height*0.5,
+            width: MediaQuery.of(context).size.width*0.5,
+            child: Lottie.asset(asset)):Lottie.asset(asset),
         );
       },
       context: context,

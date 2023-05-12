@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:agripal/values/fonts.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
+import '../common_widgets/common_widgets.dart';
+import '../values/asset_values.dart';
 import 'get_crop.dart';
 
 class CropRecommend extends StatefulWidget{
@@ -59,7 +62,7 @@ callGetCrop() async{
         .showSnackBar(const SnackBar(content: Text('Processing Data')));
   
   
-  loading();
+   dialogBox(context,plant_loading,false);
 
     response = await  GetCrop.findCrop(
     nitrogen: double.parse(nitrogen.text),
@@ -121,7 +124,7 @@ callGetCrop() async{
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('Crop Recommendation',style: GoogleFonts.dancingScript(color: Colors.black,fontSize: 25.sp,fontWeight: FontWeight.bold),),
+                      Text('Crop Recommendation',style: font7,),
                       SizedBox(height: 20.h),
                       fieldContainer("Enter Nitrogen",nitrogen),
                       fieldContainer("Enter Phosphorus",phosphorus),
@@ -232,18 +235,6 @@ callGetCrop() async{
                     ).show();
   }
 
-
-loading() {
-  showDialog(
-    barrierDismissible: false,
-    builder: (ctx) {
-      return Center(
-        child: Lottie.asset('assets/lottie/plant_anim.json'),
-      );
-    },
-    context: context,
-  );
-}
  
 
 }

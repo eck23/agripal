@@ -1,17 +1,22 @@
 import 'dart:io';
 
+import 'package:agripal/common_widgets/common_widgets.dart';
+import 'package:agripal/values/asset_values.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../datamanage/datamanage.dart';
+
 class ReportPage extends StatefulWidget {
 
-File image;
+ File image;
  var contents;
-
-  ReportPage({required this.image,required this.contents});
+ bool floatingButton;
+ 
+  ReportPage({required this.image,required this.contents,required this.floatingButton});
   
 
 
@@ -36,7 +41,45 @@ class _ReportPageState extends State<ReportPage> {
     super.initState();
 
   }
+  
+  uploadData()async{
+    
+    dialogBox(context, upload,true);
 
+    var result=await DataManage.savePlantDisease(widget.image,plantName,diseaseName);
+
+    
+    await Future.delayed(Duration(seconds: 1),(){
+
+        Navigator.pop(context);
+
+    });
+
+    print(result);
+
+     if(result=="ok"){
+      
+          dialogBox(context, done,false);
+           
+          await Future.delayed(Duration(seconds: 3),(){
+           
+            Navigator.pop(context);
+          
+           });
+        
+        }else{
+
+
+            ScaffoldMessenger.of(context)
+                  .showSnackBar(const SnackBar(content: Text('Error occured')));
+        }
+
+       
+          
+        
+   
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,6 +222,7 @@ class _ReportPageState extends State<ReportPage> {
                 height: 200.h,
                 
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                       Container(
                         height: 170.h,
@@ -217,19 +261,21 @@ class _ReportPageState extends State<ReportPage> {
                     ),
                     Container(
                       height: 180.h,
-                      padding: EdgeInsets.only(left: 15.w,top: 40.h),
+                      padding: EdgeInsets.only(left: 15.w,top: 20.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                             constraints: BoxConstraints(
-                              maxHeight: 100.h,
+                              maxHeight: 80.h,
                               maxWidth: 140.w,
                 
                             ),
-                            child: Text(widget.contents['supplement_name'],
-                            softWrap: true,
-                            style: GoogleFonts.roboto(color: Colors.black,fontSize: 20.sp,fontWeight: FontWeight.bold),
+                            child: SingleChildScrollView(
+                              child: Text(widget.contents['supplement_name'],
+                              softWrap: true,
+                              style: GoogleFonts.roboto(color: Colors.black,fontSize: 20.sp,fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                           SizedBox(height: 20.h,),
@@ -259,7 +305,12 @@ class _ReportPageState extends State<ReportPage> {
            
           ],
         ),
-      )
+      ),
+      floatingActionButton: widget.floatingButton?  FloatingActionButton(
+        child: const Icon(Icons.save),
+        backgroundColor: Colors.amber.shade400,
+        onPressed: ()=>uploadData(),
+      ):null,
     );
   }
 }
