@@ -30,7 +30,7 @@ class _CropRecommendState extends State<CropRecommend> {
   TextEditingController humidity = TextEditingController();
   TextEditingController temperature = TextEditingController();
   
-  var textVal=const TextEditingValue(text: "0.00");
+  var textVal=const TextEditingValue(text: "0.0");
   @override
   void initState() {
     
@@ -58,6 +58,7 @@ callGetCrop() async{
 
   response=null;
   
+
   if (_formKey.currentState!.validate()) {
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Processing Data')));
@@ -73,7 +74,7 @@ callGetCrop() async{
     rainfall: double.parse(rainfall.text),
     humidity: double.parse(humidity.text),
     temperature: double.parse(temperature.text));
-   }
+   
    
    
     Future.delayed(Duration(seconds: 2),(){
@@ -89,7 +90,7 @@ callGetCrop() async{
       }
     });
    
-   
+  }
 }
 
 void saveReport()async{
@@ -199,41 +200,44 @@ void saveReport()async{
 
   Widget fieldContainer(String labelText,TextEditingController controller){
 
-    return Container(
-     
-      width: MediaQuery.of(context).size.width *0.9,
-      height: MediaQuery.of(context).size.height *0.1,
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10.h),
+      child: Container(
+       
+        width: MediaQuery.of(context).size.width *0.9,
+        height: MediaQuery.of(context).size.height *0.1,
 
-      child: Row(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width *0.6,
-            child: TextFormField(
-            
-            controller: controller,
-            keyboardType: TextInputType.number,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-            ],
-            decoration: InputDecoration(
+        child: Row(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width *0.6,
+              child: TextFormField(
               
-              border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)),),
-              label: Text(labelText)
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some value';
-              }
-              return null;
-            
-            },
-        ),
+              controller: controller,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,1}')),
+              ],
+              decoration: InputDecoration(
+                
+                border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)),),
+                label: Text(labelText)
+              ),
+              validator: (value) {
+                if ( value==null || value.isEmpty ||double.parse(value)==0.0) {
+                  return 'Please enter some value';
+                }
+                return null;
+              
+              },
           ),
-        
-         IconButton(onPressed: ()=>controller.value=TextEditingValue(text: (double.parse(controller.text)-0.1).toStringAsFixed(2)), icon: Icon(Icons.remove)),
-         IconButton(onPressed: ()=>controller.value=TextEditingValue(text: (double.parse(controller.text)+0.1).toStringAsFixed(2)), icon: Icon(Icons.add))
-        ]
-      )
+            ),
+          
+           IconButton(onPressed: ()=>controller.value=TextEditingValue(text: (double.parse(controller.text)-0.1).toStringAsFixed(1)), icon: Icon(Icons.remove)),
+           IconButton(onPressed: ()=>controller.value=TextEditingValue(text: (double.parse(controller.text)+0.1).toStringAsFixed(1)), icon: Icon(Icons.add))
+          ]
+        )
+      ),
     );
   }
 

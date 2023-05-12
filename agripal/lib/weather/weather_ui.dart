@@ -34,13 +34,13 @@ class _WeatherHomeState extends State<WeatherHome> {
 
         return SafeArea(
           child: Scaffold(
-        
+                
             body: FutureBuilder(
               future: GetWeather.getCurrentWeatherByPosition(widget.lat, widget.long, true),
               builder:((context, AsyncSnapshot<dynamic>snapshot) {
-
-                    if(snapshot.hasData){
-
+            
+                    if(snapshot.hasData && snapshot.connectionState==ConnectionState.done){
+            
                         return SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,13 +141,28 @@ class _WeatherHomeState extends State<WeatherHome> {
                             ),
                       );
                     }else{
+                       if((snapshot.connectionState==ConnectionState.done && !snapshot.hasData) ||snapshot.hasError){
+                        return Center(child: Container(
+                        height: 200.h,
+                        width: 150.w,
+                        child: Column(
+                          children: [
+                            Lottie.asset("assets/lottie/oopsie.json",fit: BoxFit.fill,),
+                             TextButton.icon(onPressed: (){setState(() {
+                               
+                             });}, icon: Icon(Icons.refresh_outlined), label: Text("Retry"))
+                          ],
+                        )));
+                    }else{
                       return Center(child: Container(
-                        height: 150.h,
-                        width: 100.w,
+                        height: 170.h,
+                        width: 140.w,
                         child: Lottie.asset("assets/lottie/weather_loading.json",fit: BoxFit.fill,)));
                     }
-
-              }) 
+            
+                  }
+                }
+              ) 
             ),
           ),
         );

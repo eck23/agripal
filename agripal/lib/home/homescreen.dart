@@ -54,14 +54,22 @@ class _HomeScreenState extends State<HomeScreen>{
           IconButton(onPressed: ()=>AuthMethods.signOut(), icon: const Icon(Icons.logout,color: Colors.black,))],
       ),
 
-      body: IndexedStack(
-        index: currentIndex,
-        children: [
-          NewsAndWeatherHome(),
-          PlantDisease(),
-          CropRecommend(),
-          ReportsHome(),
-        ],
+      body: RefreshIndicator(
+          
+          onRefresh: ()async{
+          setState(() {
+            
+          });
+        },
+        child: IndexedStack(
+          index: currentIndex,
+          children: [
+            NewsAndWeatherHome(),
+            PlantDisease(),
+            CropRecommend(),
+            ReportsHome(),
+          ],
+        ),
       ),
       
   bottomNavigationBar: AnimatedBottomNavigationBar(

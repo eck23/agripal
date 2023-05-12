@@ -20,7 +20,9 @@ class GetWeather{
           
           List<Placemark> placemarks = await placemarkFromCoordinates(lat,long);
 
-          var response= await http.get(Uri.parse(url));
+          var response= await http.get(Uri.parse(url)).timeout(Duration(seconds: 30),onTimeout: (){
+            return http.Response("Error",500);
+          });
 
 
           if(response.statusCode!=200){

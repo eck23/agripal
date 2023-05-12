@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:agripal/common_widgets/common_widgets.dart';
 import 'package:agripal/values/asset_values.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -7,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../datamanage/datamanage.dart';
 
 class ReportPage extends StatefulWidget {

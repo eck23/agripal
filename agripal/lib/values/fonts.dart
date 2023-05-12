@@ -19,3 +19,5 @@ TextStyle font7 =GoogleFonts.dancingScript(color: Colors.black,fontSize: 25.sp,f
 TextStyle font8= GoogleFonts.josefinSans(fontSize: 20.sp,fontWeight: FontWeight.bold,color: Colors.white,);
 
 TextStyle font9=GoogleFonts.raleway(fontSize: 15.sp,fontWeight: FontWeight.w600,color: Colors.blue);
+
+TextStyle font10= GoogleFonts.roboto(fontSize: 12.sp,fontWeight: FontWeight.bold,color: Colors.white,);

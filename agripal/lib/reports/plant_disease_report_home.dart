@@ -81,11 +81,14 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
             return ListView.builder(
               itemCount: snapshot.data!['savedDiseasePredictions'].length,
               itemBuilder: (context, index) {
+                
+                var item=snapshot.data!['savedDiseasePredictions'][index];
+
                 return InkWell(
                   onTap: ()async{
 
                     dialogBox(context, plant_loading,false);
-                    var file=await _fileFromImageUrl(snapshot.data!['savedDiseasePredictions'][index]['imageUrl']);
+                    var file=await _fileFromImageUrl(item['imageUrl']);
 
                     if(file==null){
                       Navigator.pop(context);
@@ -125,7 +128,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                             
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r),bottomLeft: Radius.circular(15.r)),
                             image: DecorationImage(
-                              image: NetworkImage(snapshot.data!['savedDiseasePredictions'][index]['imageUrl']),
+                              image: NetworkImage(item['imageUrl']),
                               fit: BoxFit.cover
                             ),
                             boxShadow: [
@@ -147,7 +150,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                               width: 160.w,
                               height: 20.h,
                               child: Text(
-                                      "Name: ${snapshot.data!['savedDiseasePredictions'][index]['plantName']}",
+                                      "Name: ${item['plantName']}",
                                       style: font6,
                                       // overflow: TextOverflow.ellipsis,
                                       softWrap: true,)),
@@ -156,7 +159,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                               width: 160.w,
                               height: 20.h,
                               child: Text(
-                                      "Condition: ${snapshot.data!['savedDiseasePredictions'][index]['diseaseName']}",
+                                      "Condition: ${item['diseaseName']}",
                                       style: font6,
                                       // overflow: TextOverflow.ellipsis,
                                       softWrap: true,)),
@@ -165,7 +168,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                               width: 160.w,
                               height: 30.h,
                               child: Text(
-                                      "Date: ${DateFormat('dd-MM-yyyy').format(DateTime.parse(snapshot.data!['savedDiseasePredictions'][index]['time']))} ",
+                                      "Date: ${DateFormat.yMMMMd().format(DateTime.parse(item['time']))} ",
                                       style: font6,
                                       // overflow: TextOverflow.ellipsis,
                                       softWrap: true,)),
