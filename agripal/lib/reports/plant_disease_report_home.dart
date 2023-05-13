@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import '../common_widgets/common_widgets.dart';
 import '../plant_disease_prediction/disease_report_page.dart';
 import '../plant_disease_prediction/predict_disease.dart';
@@ -84,99 +85,120 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                 
                 var item=snapshot.data!['savedDiseasePredictions'][index];
 
-                return InkWell(
-                  onTap: ()async{
-
-                    dialogBox(context, plant_loading,false);
-                    var file=await _fileFromImageUrl(item['imageUrl']);
-
-                    if(file==null){
-                      Navigator.pop(context);
-                      ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text('Error occured')));
-                    }
-                    else{
-                        getFullReport(file,context);
-                    }
-                    
-
-                  },
-
-                  child: Container(
-                    height: 120.h,
-                    width: MediaQuery.of(context).size.width*0.7,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.shade500,
-                          blurRadius: 5,
-                          offset: Offset(0, 3)
-                        )
-                      ]
-                    ),
+                return Container(
+                  height: 150.h,
+                  width: MediaQuery.of(context).size.width*0.5,
+                  margin: EdgeInsets.symmetric(vertical: 15.h,horizontal: 20.w),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade500,
+                        blurRadius: 5,
+                        offset: Offset(0, 3)
+                      )
+                    ]
+                  ),
                 
-                    margin: EdgeInsets.symmetric(vertical: 15.h,horizontal: 20.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 120.h,
-                          width: 130.w,
-                          decoration: BoxDecoration(
-                            
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r),bottomLeft: Radius.circular(15.r)),
-                            image: DecorationImage(
-                              image: NetworkImage(item['imageUrl']),
-                              fit: BoxFit.cover
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 10,
-                                spreadRadius: 1
-                                // offset: Offset(0, 7)
-                              )
-                            ]
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+
+                      Container(
+                        height: 50.h,
+                        width: double.infinity,
+                        child: Opacity(
+                          opacity: 1,
+                          child: Lottie.asset("assets/lottie/grass.json",fit: BoxFit.fill,))),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 150.h,
+                            width: 130.w,
+                            decoration: BoxDecoration(
+                              
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r),bottomLeft: Radius.circular(15.r)),
+                              image: DecorationImage(
+                                image: NetworkImage(item['imageUrl']),
+                                fit: BoxFit.cover
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  blurRadius: 10,
+                                  spreadRadius: 3,
+                                  offset: Offset(0, 3)
+                                )
+                              ]
+                            )
+                          ),
+                          SizedBox(width: 10.w,),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Column(
+                                // mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 160.w,
+                                    height: 20.h,
+                                    child: Text(
+                                            "Name: ${item['plantName']}",
+                                            style: font6,
+                                            // overflow: TextOverflow.ellipsis,
+                                            softWrap: true,)),
+                                  Divider(height: 3.h,),
+                                  Container(
+                                    width: 160.w,
+                                    height: 20.h,
+                                    child: Text(
+                                            "Condition: ${item['diseaseName']}",
+                                            style: font6,
+                                            // overflow: TextOverflow.ellipsis,
+                                            softWrap: true,)),
+                                  Divider(height: 3.h,),
+                                  Container(
+                                    width: 160.w,
+                                    height: 30.h,
+                                    child: Text(
+                                            "Date: ${DateFormat.yMMMMd().format(DateTime.parse(item['time']))} ",
+                                            style: font6,
+                                            // overflow: TextOverflow.ellipsis,
+                                            softWrap: true,)),
+                                  // Divider(height: 3.h,),
+                                 
+                
+                                ],
+                              ),
+                               Padding(
+                                 padding: EdgeInsets.only(left: 50.w),
+                                 child: TextButton.icon(icon: Icon(Icons.arrow_forward_rounded), label: Text("View Full Report",style: font3,),
+                                  onPressed: ()async{
+
+                                    dialogBox(context, plant_loading,false);
+                                      var file=await _fileFromImageUrl(item['imageUrl']);
+
+                                      if(file==null){
+                                        Navigator.pop(context);
+                                        ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(content: Text('Error occured')));
+                                      }
+                                      else{
+                                          getFullReport(file,context);
+                                      }
+                                   }  
+                                     
+                                 ),
+                               )
+                            ],
                           )
-                        ),
-                        SizedBox(width: 10.w,),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 160.w,
-                              height: 20.h,
-                              child: Text(
-                                      "Name: ${item['plantName']}",
-                                      style: font6,
-                                      // overflow: TextOverflow.ellipsis,
-                                      softWrap: true,)),
-                            Divider(height: 3.h,),
-                            Container(
-                              width: 160.w,
-                              height: 20.h,
-                              child: Text(
-                                      "Condition: ${item['diseaseName']}",
-                                      style: font6,
-                                      // overflow: TextOverflow.ellipsis,
-                                      softWrap: true,)),
-                            Divider(height: 3.h,),
-                            Container(
-                              width: 160.w,
-                              height: 30.h,
-                              child: Text(
-                                      "Date: ${DateFormat.yMMMMd().format(DateTime.parse(item['time']))} ",
-                                      style: font6,
-                                      // overflow: TextOverflow.ellipsis,
-                                      softWrap: true,)),
-                  
-                          ],
-                        )
-                      ],
-                    ),
+                        ],
+                      ),
+                    ],
                   ),
                 );
               },

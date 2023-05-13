@@ -18,9 +18,9 @@ class _CropRecommendReportHomeState extends State<CropRecommendReportHome>{
   var stream=DataManage.ref.snapshots();
 
   List colorList=[
-    Color.fromARGB(255, 2, 60, 107), Color.fromARGB(255, 172, 31, 31),
-     Color.fromARGB(255, 2, 110, 60),
-     Color.fromARGB(255, 206, 137, 10)
+    Color.fromARGB(255, 9, 127, 224),Color.fromARGB(255, 238, 83, 83),
+     Color.fromARGB(255, 7, 197, 108),
+     Color.fromARGB(255, 238, 167, 37)
      ];
 
    @override
@@ -46,7 +46,7 @@ class _CropRecommendReportHomeState extends State<CropRecommendReportHome>{
                   width: MediaQuery.of(context).size.width*0.5,
                   margin: EdgeInsets.symmetric(vertical: 15.h,horizontal: 20.w),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.r),
+                    borderRadius: BorderRadius.circular(15.r),
                     color: colorList[index%colorList.length],
                     boxShadow: [
                       BoxShadow(
@@ -66,7 +66,7 @@ class _CropRecommendReportHomeState extends State<CropRecommendReportHome>{
                           height: 50.h,
                           width: double.infinity,
                           child: Opacity(
-                            opacity: 0.1,
+                            opacity: 0.2,
                             child: Lottie.asset("assets/lottie/grass.json",fit: BoxFit.fill,))),
 
                           Column(

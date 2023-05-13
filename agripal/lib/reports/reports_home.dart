@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import 'harvest_report_home.dart';
 import 'plant_disease_report_home.dart';
@@ -59,7 +60,7 @@ class _ReportsHomeState extends State<ReportsHome> {
        width: MediaQuery.of(context).size.width*0.9,
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(20.r),
           boxShadow: const [
             BoxShadow(
               color: Colors.black26,
@@ -68,28 +69,40 @@ class _ReportsHomeState extends State<ReportsHome> {
             ),
           ],
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
+          fit: StackFit.expand,
           children: [
-            Padding(
-              padding: EdgeInsets.only(top: 60.h),
-              child: Text(title,style: font8,),
-            ),
-            Padding(
-              padding:EdgeInsets.only(top: 45.h,right: 20.w),
-              child: InkWell(
-                onTap: ()=>onTap(),
-                
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text("View Report",style: GoogleFonts.josefinSans(fontSize: 15.sp,color: Colors.white),),
-                    Icon(Icons.arrow_forward_sharp,color: Colors.white,)
-                  ],
+            Container(
+              height: 50.h,
+              width: double.infinity,
+              child: Opacity(
+                opacity: 0.2,
+                child: Lottie.asset("assets/lottie/grass.json",fit: BoxFit.fill,))),
+
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 60.h),
+                  child: Text(title,style: font8,),
                 ),
-              ),
-            )
+                Padding(
+                  padding:EdgeInsets.only(top: 45.h,right: 20.w),
+                  child: InkWell(
+                    onTap: ()=>onTap(),
+                    
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text("View Report",style: GoogleFonts.josefinSans(fontSize: 15.sp,color: Colors.white),),
+                        Icon(Icons.arrow_forward_sharp,color: Colors.white,)
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
           ],
         ),
       );

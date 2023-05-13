@@ -62,7 +62,7 @@ class _WeatherHomeState extends State<WeatherHome> {
                             ),
                             Padding(
                               padding: EdgeInsets.all(20.w),
-                              child: WeatherContainer(currentWeather: snapshot.data!['currentWeather'],canNavigate: false),
+                              child: WeatherContainer(currentWeather: snapshot.data!['currentWeather'],canNavigate: false,),
                             ),
                           
                           Padding(

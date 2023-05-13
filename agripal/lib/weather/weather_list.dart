@@ -35,7 +35,7 @@ class _WeatherListUIState extends State<WeatherListUI> {
             itemBuilder: (context, index) {
               return Padding(
                 padding:  EdgeInsets.only(bottom: 8.h),
-                child: WeatherContainer(currentWeather: widget.weatherList[index], canNavigate: true),
+                child: WeatherContainer(currentWeather: widget.weatherList[index], canNavigate: true,),
               );
             },
            

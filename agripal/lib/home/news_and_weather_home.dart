@@ -164,7 +164,7 @@ class _NewsAndWeatherHomeState extends State<NewsAndWeatherHome> {
             width: MediaQuery.of(context).size.width*0.9,
             decoration: BoxDecoration(
               color: Colors.amberAccent.shade400,
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(20.r),
               boxShadow: const [
                 BoxShadow(
                   color: Colors.black26,
@@ -201,7 +201,7 @@ class _NewsAndWeatherHomeState extends State<NewsAndWeatherHome> {
           width: MediaQuery.of(context).size.width*0.9,
           decoration: BoxDecoration(
             color: Colors.blue.shade900,
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(20.r),
             boxShadow: const [
               BoxShadow(
                 color: Colors.black26,

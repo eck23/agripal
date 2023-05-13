@@ -53,7 +53,7 @@ class _WeatherContainerState extends State<WeatherContainer> {
               width: MediaQuery.of(context).size.width*0.9,
               decoration: BoxDecoration(
               color: widget.currentWeather.isDay==1?dayColor:nightColor,
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(20.r),
               boxShadow: const [
                 BoxShadow(
                   color: Colors.black26,
