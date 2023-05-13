@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:agripal/plant_disease_prediction/predict_disease.dart';
 import 'package:agripal/values/asset_values.dart';
 import 'package:agripal/values/fonts.dart';
+import 'package:agripal/values/private.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,6 +25,11 @@ class _PlantDiseaseState extends State<PlantDisease>{
   
   uploadImage()async{
 
+        if(!isLocalHost){
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text('Feature not available in the web - Enable Local Host')));
+            return;
+        }
         
         Navigator.pop(context);
         dialogBox(context,plant_loading,false);

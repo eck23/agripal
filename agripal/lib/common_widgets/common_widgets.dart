@@ -46,12 +46,12 @@ confirmDialog(BuildContext context,String content,Function function) {
               children: [
                 SizedBox(height: 20.h,),
                 Text(content,style: font9,),
-                Divider(thickness: 1,),
+                Divider(thickness: 0,),
                 TextButton(onPressed:(){
                   Navigator.pop(context);
                   function();
                 } , child: Text("Yes",style: font9,)),
-                Divider(thickness: 1,),
+                Divider(thickness: 0,),
                 TextButton(onPressed: () =>Navigator.pop(context), child: Text("No",style: font9,)),
 
               ],

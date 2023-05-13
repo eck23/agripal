@@ -36,6 +36,9 @@ class _HomeScreenState extends State<HomeScreen>{
     @override
   void initState() {
     DataManage.ref=FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.email);
+
+    getIPandPortVal();
+    
     super.initState();
   }
   

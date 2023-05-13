@@ -29,8 +29,8 @@ class _CropRecommendReportHomeState extends State<CropRecommendReportHome>{
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white), 
-        backgroundColor: Colors.amber,
+        iconTheme: const IconThemeData(color: Colors.black), 
+        backgroundColor: Colors.orange.shade400,
         title: Text("Crop Recommendation Report",style: font7,),
       ),
       body: StreamBuilder(

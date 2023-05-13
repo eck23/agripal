@@ -10,6 +10,7 @@ import 'package:lottie/lottie.dart';
 import '../common_widgets/common_widgets.dart';
 import '../datamanage/datamanage.dart';
 import '../values/asset_values.dart';
+import '../values/private.dart';
 import 'get_crop.dart';
 
 class CropRecommend extends StatefulWidget{
@@ -56,6 +57,12 @@ var response;
 
 callGetCrop() async{
 
+   if(!isLocalHost){
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text('Feature not available in the web - Enable Local Host')));
+            return;
+    }
+
   response=null;
   FocusScope.of(context).unfocus();
 
@@ -89,7 +96,8 @@ callGetCrop() async{
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error occured')));
       }
     });
-   
+
+    clearAll();
   }
 }
 
@@ -131,6 +139,15 @@ void saveReport()async{
   }
 }
 
+clearAll(){
+  nitrogen.value=textVal;
+  phosphorus.value=textVal;
+  potassium.value=textVal;
+  ph.value=textVal;
+  rainfall.value=textVal;
+  humidity.value=textVal;
+  temperature.value=textVal;
+}
 
 
 

@@ -70,7 +70,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
       backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.amberAccent,
+        backgroundColor: Colors.green.shade400,
         elevation: 2,
         title: Text("Plant Disease Report",style: font7,),
         
@@ -104,7 +104,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                   width: MediaQuery.of(context).size.width*0.5,
                   margin: EdgeInsets.symmetric(vertical: 15.h,horizontal: 20.w),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(10.r),
                     boxShadow: [
                       BoxShadow(
@@ -115,103 +115,90 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                     ]
                   ),
                 
-                  child: Stack(
-                    fit: StackFit.expand,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-
                       Container(
-                        height: 40.h,
-                        width: double.infinity,
-                        child: Opacity(
-                          opacity: 1,
-                          child: Lottie.asset(grass,fit: BoxFit.fill,))),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 150.h,
-                            width: 130.w,
-                            decoration: BoxDecoration(
-                              
-                              borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r)),
-                              image: DecorationImage(
-                                image: NetworkImage(item['imageUrl']),
-                                fit: BoxFit.cover
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 10,
-                                  spreadRadius: 3,
-                                  offset: Offset(0, 3)
-                                )
-                              ]
-                            )
+                        height: 150.h,
+                        width: 130.w,
+                        decoration: BoxDecoration(
+                          
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r),bottomLeft: Radius.circular(10.r)),
+                          image: DecorationImage(
+                            image: NetworkImage(item['imageUrl']),
+                            fit: BoxFit.cover
                           ),
-                          SizedBox(width: 10.w,),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Column(
-                                // mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: 160.w,
-                                    height: 20.h,
-                                    child: Text(
-                                            "Name: ${item['plantName']}",
-                                            style: font6,
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: true,)),
-                                  Divider(height: 3.h,),
-                                  Container(
-                                    width: 160.w,
-                                    height: 20.h,
-                                    child: Text(
-                                            "Condition: ${item['diseaseName']}",
-                                            style: font6,
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: true,)),
-                                  Divider(height: 3.h,),
-                                  Container(
-                                    width: 160.w,
-                                    height: 30.h,
-                                    child: Text(
-                                            "Date: ${DateFormat.yMMMMd().format(DateTime.parse(item['time']))} ",
-                                            style: font6,
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: true,)),
-                                  // Divider(height: 3.h,),
-                                 
-                
-                                ],
-                              ),
-                               Padding(
-                                 padding: EdgeInsets.only(left: 50.w),
-                                 child: TextButton.icon(icon: Icon(Icons.arrow_forward_rounded,size: 18,), label: Text("View Full Report",style: font3,),
-                                  onPressed: ()async{
-
-                                    dialogBox(context, plant_loading,false);
-                                      var file=await _fileFromImageUrl(item['imageUrl']);
-
-                                      if(file==null){
-                                        Navigator.pop(context);
-                                        ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(content: Text('Error occured')));
-                                      }
-                                      else{
-                                          getFullReport(file,context);
-                                      }
-                                   }  
-                                     
-                                 ),
-                               )
-                            ],
-                          )
-                        ],
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 10,
+                              spreadRadius: 3,
+                              offset: Offset(0, 3)
+                            )
+                          ]
+                        )
                       ),
+                      SizedBox(width: 10.w,),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Column(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 160.w,
+                                height: 20.h,
+                                child: Text(
+                                        "Name: ${item['plantName']}",
+                                        style: font6,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: true,)),
+                              Divider(height: 3.h,),
+                              Container(
+                                width: 160.w,
+                                height: 20.h,
+                                child: Text(
+                                        "Condition: ${item['diseaseName']}",
+                                        style: font6,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: true,)),
+                              Divider(height: 3.h,),
+                              Container(
+                                width: 160.w,
+                                height: 30.h,
+                                child: Text(
+                                        "Date: ${DateFormat.yMMMMd().format(DateTime.parse(item['time']))} ",
+                                        style: font6,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: true,)),
+                              // Divider(height: 3.h,),
+                             
+                
+                            ],
+                          ),
+                           Padding(
+                             padding: EdgeInsets.only(left: 50.w),
+                             child: TextButton.icon(icon: Icon(Icons.arrow_forward_rounded,size: 18,), label: Text("View Full Report",style: font3,),
+                              onPressed: ()async{
+
+                                dialogBox(context, plant_loading,false);
+                                  var file=await _fileFromImageUrl(item['imageUrl']);
+
+                                  if(file==null){
+                                    Navigator.pop(context);
+                                    ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(content: Text('Error occured')));
+                                  }
+                                  else{
+                                      getFullReport(file,context);
+                                  }
+                               }  
+                                 
+                             ),
+                           )
+                        ],
+                      )
                     ],
                   ),
                 );

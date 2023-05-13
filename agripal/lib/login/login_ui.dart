@@ -71,7 +71,7 @@ onSubmitClick() async{
 
      // ignore: unrelated_type_equality_checks
 
-    await Future.delayed(const Duration(seconds: 3),(){
+    await Future.delayed(const Duration(seconds: 1),(){
             Navigator.pop(context);
           });
       

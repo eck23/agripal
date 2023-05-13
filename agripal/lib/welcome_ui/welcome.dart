@@ -1,5 +1,6 @@
 import 'package:agripal/login/login_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:lottie/lottie.dart';
 
@@ -7,41 +8,41 @@ class WelcomeScreen extends StatelessWidget {
 
 
 
-  static const TextStyle goldcoinGreyStyle = TextStyle(
-      color: Colors.grey,
+  static  TextStyle goldcoinGreyStyle = TextStyle(
+      color: Colors.grey.shade800,
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
       fontFamily: "LexendDeca");
 
-  static const TextStyle goldCoinWhiteStyle = TextStyle(
+  static  TextStyle goldCoinWhiteStyle = TextStyle(
       color: Colors.white,
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
       fontFamily: "LexendDeca");
-  static const TextStyle goldCoinBlackStyle = TextStyle(
+  static  TextStyle goldCoinBlackStyle = TextStyle(
       color: Colors.black,
       fontSize: 20.0,
       fontWeight: FontWeight.bold,
       fontFamily: "LexendDeca");
 
-  static const TextStyle greyStyle =
-      TextStyle(fontSize: 40.0, color: Colors.grey, fontFamily: "LexendDeca");
+  static TextStyle greyStyle =
+      TextStyle(fontSize: 40.0, color: Colors.grey.shade800, fontFamily: "LexendDeca");
 
-  static const TextStyle whiteStyle =
+  static  TextStyle whiteStyle =
       TextStyle(fontSize: 40.0, color: Colors.white, fontFamily: "LexendDeca");
 
-  static const TextStyle blueStyle = TextStyle(
+  static  TextStyle blueStyle = TextStyle(
       fontSize: 40.0, color: Color(0xff404040), fontFamily: "LexendDeca");
 
-  static const TextStyle boldStyle = TextStyle(
+  static  TextStyle boldStyle = TextStyle(
     fontSize: 50.0,
     color: Colors.black,
     fontFamily: "LexendDeca",
     fontWeight: FontWeight.bold,
   );
 
-  static const TextStyle descriptionGreyStyle = TextStyle(
-    color: Colors.grey,
+  static TextStyle descriptionGreyStyle = TextStyle(
+    color: Colors.grey.shade800,
     fontSize: 20.0,
     fontFamily: "LexendDeca",
   );
@@ -68,7 +69,7 @@ class WelcomeScreen extends StatelessWidget {
             Container(
               color: Color(0xffb6e4f8),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
@@ -79,7 +80,9 @@ class WelcomeScreen extends StatelessWidget {
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundImage: AssetImage("assets/agripal_logo.png"),
+                              backgroundColor: Colors.white,
+                              child: Image.asset("assets/images/agripal_logo.png") ,
+                              // backgroundImage: AssetImage("assets/agripal_logo.png"),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 8.0),
@@ -105,6 +108,9 @@ class WelcomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                  // SizedBox(
+                  //   height: 100.0.h,
+                  // ),
                   Center(
                     child: Lottie.asset("assets/lottie/harvest.json",
                         width: 300, fit: BoxFit.fill),
@@ -152,7 +158,9 @@ class WelcomeScreen extends StatelessWidget {
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundImage: AssetImage("assets/agripal_logo.png"),
+                              backgroundColor: Colors.white,
+                              child: Image.asset("assets/images/agripal_logo.png") ,
+                              //backgroundImage: AssetImage("assets/agripal_logo.png"),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 8.0),
@@ -221,7 +229,9 @@ class WelcomeScreen extends StatelessWidget {
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundImage: AssetImage("assets/agripal_logo.png"),
+                              backgroundColor: Colors.white,
+                              child: Image.asset("assets/images/agripal_logo.png"),
+                              //backgroundImage: AssetImage("assets/agripal_logo.png"),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 8.0),
