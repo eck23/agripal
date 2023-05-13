@@ -97,7 +97,7 @@ callGetCrop() async{
       }
     });
 
-    clearAll();
+    
   }
 }
 
@@ -231,6 +231,7 @@ clearAll(){
               child: TextFormField(
               
               controller: controller,
+              textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,1}')),
