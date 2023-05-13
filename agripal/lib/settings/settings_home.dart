@@ -268,8 +268,11 @@ class _SettingsHomeState extends State<SettingsHome>{
                       width: MediaQuery.of(context).size.width*0.5,
        
                       child: AnimatedButton(pressEvent:(){
-                        confirmDialog(context,"Sure to Logout?", ()=>AuthMethods.signOut());
-                        Navigator.pop(context);
+                        confirmDialog(context,"Sure to Logout?", (){
+                          AuthMethods.signOut();
+                          Navigator.pop(context);
+                        });
+                        
                       }, text: "Logout", color: Colors.redAccent, icon: Icons.logout,),
                     ),
               ],

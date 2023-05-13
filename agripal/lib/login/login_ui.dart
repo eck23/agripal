@@ -142,7 +142,7 @@ onSubmitClick() async{
                         child: AnimatedContainer(
                           height: isLogin?400.h:450.h,
                           width: 300.w,
-                          duration: const Duration(seconds: 3),
+                          duration: const Duration(seconds: 2),
                           curve: Curves.fastLinearToSlowEaseIn,
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -203,7 +203,7 @@ onSubmitClick() async{
                       //OR Text
                       AnimatedOpacity(
                         opacity: visible?1:0.0,
-                        duration: const Duration(seconds: 1),
+                        duration: const Duration(milliseconds: 500),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             
@@ -223,7 +223,7 @@ onSubmitClick() async{
                       // Login- Register swithcer
                       AnimatedOpacity(
                         opacity: visible?1:0.0,
-                        duration: const Duration(seconds: 1),
+                        duration: const Duration(milliseconds: 500),
                         child: TextButton(child: Text(isLogin?"Register if you are new":"Login if you already have an account",style: GoogleFonts.josefinSans(color: Colors.orange.shade900,fontSize: 15.sp,fontWeight: FontWeight.w700)), onPressed: () {
                               
                               clearControllers();
@@ -234,7 +234,7 @@ onSubmitClick() async{
                                 
                               });
                         
-                            Future.delayed( Duration(seconds: 1), () {
+                            Future.delayed( Duration(milliseconds: 500), () {
                                   setState(() {
                                     isLogin=!isLogin;
                                      visible=!visible;
