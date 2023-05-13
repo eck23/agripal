@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:agripal/values/private.dart';
 import 'package:http/http.dart' as http;
 
 class PredictPlantDisease{
@@ -8,7 +9,7 @@ class PredictPlantDisease{
 
     static uploadImageToServer(File image) async {
           
-          String url="http://10.0.2.2:5000/disease_detection";
+          String url="http://$localIP:$port1/disease_detection";
 
          try{
 

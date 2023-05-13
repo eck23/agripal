@@ -71,7 +71,9 @@ class _SplashScreenState extends State<SplashScreen> {
              
              Container(
                  
-                 child: Lottie.asset("assets/lottie/grass.json",height: 120.h,width:double.infinity , animate: true,fit: BoxFit.fill,),
+                 child: Opacity(
+                  opacity: 0.8,
+                  child: Lottie.asset("assets/lottie/grass.json",height: 120.h,width:double.infinity , animate: true,fit: BoxFit.fill,)),
                ),
          
              ],

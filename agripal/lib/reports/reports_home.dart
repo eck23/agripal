@@ -1,13 +1,11 @@
 import 'package:agripal/reports/crop_rec_report_home.dart';
 import 'package:agripal/values/fonts.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-
-import 'harvest_report_home.dart';
 import 'plant_disease_report_home.dart';
+
 
 class ReportsHome extends StatefulWidget {
   @override
@@ -27,8 +25,9 @@ class _ReportsHomeState extends State<ReportsHome> {
   }
 
   void pushHarvestReport(){
-     
-     Navigator.push(context, MaterialPageRoute(builder: (context)=>HarvestReportHome()));
+     ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text('Feature Coming Soon')));
+    //  Navigator.push(context, MaterialPageRoute(builder: (context)=>HarvestReportHome()));
   }
 
   @override
@@ -41,7 +40,7 @@ class _ReportsHomeState extends State<ReportsHome> {
             Text("Reports",style: font7,),
             SizedBox(height: 20,),
 
-            reportNavContainer("Plant Disease Report",Colors.amberAccent,pushPlantDiseaseReport),
+            reportNavContainer("Plant Disease Report",Color.fromARGB(255, 238, 195, 38),pushPlantDiseaseReport),
             SizedBox(height: 20,),
             reportNavContainer("Crop Recommendation Report",Colors.redAccent,pushCropRecommendationReport),
             SizedBox(height: 20,),

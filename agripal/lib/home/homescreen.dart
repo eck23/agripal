@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../settings/settings_home.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -51,7 +53,10 @@ class _HomeScreenState extends State<HomeScreen>{
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
-          IconButton(onPressed: ()=>AuthMethods.signOut(), icon: const Icon(Icons.logout,color: Colors.black,))],
+          //setting icon button
+          IconButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsHome())), icon: const Icon(Icons.settings,color: Colors.black,)),
+          //IconButton(onPressed: ()=>AuthMethods.signOut(), icon: const Icon(Icons.logout,color: Colors.black,))
+          ],
       ),
 
       body: RefreshIndicator(

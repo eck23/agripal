@@ -57,7 +57,7 @@ var response;
 callGetCrop() async{
 
   response=null;
-  
+  FocusScope.of(context).unfocus();
 
   if (_formKey.currentState!.validate()) {
     ScaffoldMessenger.of(context)
@@ -77,7 +77,7 @@ callGetCrop() async{
    
    
    
-    Future.delayed(Duration(seconds: 2),(){
+    Future.delayed(Duration(seconds: 1),(){
       
       Navigator.pop(context);
 
@@ -168,7 +168,7 @@ void saveReport()async{
                       fieldContainer("Enter Nitrogen",nitrogen),
                       fieldContainer("Enter Phosphorus",phosphorus),
                       fieldContainer("Enter Potassium",potassium),
-                      fieldContainer("Enter PH",ph),
+                      fieldContainer("Enter pH",ph),
                       fieldContainer("Enter Rainfall",rainfall),
                       fieldContainer("Enter Humidity",humidity),
                       fieldContainer("Enter Temperature",temperature),
@@ -274,7 +274,7 @@ void saveReport()async{
                       // showCloseIcon: true,
                       btnCancelText: "Cancel",
                       btnOkText: "Save Report",
-                      btnCancelOnPress: () {},
+                      btnCancelOnPress: (){},
                       btnOkOnPress: ()=>saveReport(),
                     ).show();
   }

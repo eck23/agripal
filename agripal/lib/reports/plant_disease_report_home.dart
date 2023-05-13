@@ -70,7 +70,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
       backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.amberAccent,
         elevation: 2,
         title: Text("Plant Disease Report",style: font7,),
         
@@ -105,7 +105,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                   margin: EdgeInsets.symmetric(vertical: 15.h,horizontal: 20.w),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(15.r),
+                    borderRadius: BorderRadius.circular(10.r),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.shade500,
@@ -120,7 +120,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                     children: [
 
                       Container(
-                        height: 50.h,
+                        height: 40.h,
                         width: double.infinity,
                         child: Opacity(
                           opacity: 1,
@@ -134,7 +134,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                             width: 130.w,
                             decoration: BoxDecoration(
                               
-                              borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r),bottomLeft: Radius.circular(15.r)),
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r)),
                               image: DecorationImage(
                                 image: NetworkImage(item['imageUrl']),
                                 fit: BoxFit.cover
@@ -163,7 +163,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                                     child: Text(
                                             "Name: ${item['plantName']}",
                                             style: font6,
-                                            // overflow: TextOverflow.ellipsis,
+                                            overflow: TextOverflow.ellipsis,
                                             softWrap: true,)),
                                   Divider(height: 3.h,),
                                   Container(
@@ -172,7 +172,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                                     child: Text(
                                             "Condition: ${item['diseaseName']}",
                                             style: font6,
-                                            // overflow: TextOverflow.ellipsis,
+                                            overflow: TextOverflow.ellipsis,
                                             softWrap: true,)),
                                   Divider(height: 3.h,),
                                   Container(
@@ -181,7 +181,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                                     child: Text(
                                             "Date: ${DateFormat.yMMMMd().format(DateTime.parse(item['time']))} ",
                                             style: font6,
-                                            // overflow: TextOverflow.ellipsis,
+                                            overflow: TextOverflow.ellipsis,
                                             softWrap: true,)),
                                   // Divider(height: 3.h,),
                                  

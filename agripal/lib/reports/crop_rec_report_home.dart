@@ -19,9 +19,9 @@ class _CropRecommendReportHomeState extends State<CropRecommendReportHome>{
   var stream=DataManage.ref.snapshots();
 
   List colorList=[
-    Color.fromARGB(255, 9, 127, 224),Color.fromARGB(255, 238, 83, 83),
-     Color.fromARGB(255, 7, 197, 108),
-     Color.fromARGB(255, 238, 167, 37)
+    Color.fromARGB(255, 4, 75, 133),Color.fromARGB(255, 209, 29, 29),
+     Color.fromARGB(255, 4, 155, 84),
+     Color.fromARGB(255, 235, 161, 23)
      ];
 
    @override
@@ -29,8 +29,8 @@ class _CropRecommendReportHomeState extends State<CropRecommendReportHome>{
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black), 
-        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.white), 
+        backgroundColor: Colors.amber,
         title: Text("Crop Recommendation Report",style: font7,),
       ),
       body: StreamBuilder(
