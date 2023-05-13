@@ -37,6 +37,7 @@ dependencies:
   flutter_screenutil: ^5.7.0
   http: ^0.13.5
   lottie: ^2.3.2
+  flutter_slidable: any
   awesome_dialog: ^3.0.2
   google_fonts: ^4.0.3
   image_picker: ^0.8.7+4
@@ -94,6 +95,8 @@ flutter:
       - assets/lottie/upload.json
       - assets/lottie/done.json
       - assets/lottie/oopsie.json
+      - assets/lottie/delete.json
+      - assets/lottie/empty.json
       - assets/images/agripal_logo.png
       - assets/images/farmer.jpg
       - assets/images/cloud_moon_drizzles.png

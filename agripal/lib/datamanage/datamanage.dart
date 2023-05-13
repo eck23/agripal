@@ -100,5 +100,34 @@ class DataManage{
           }
     } 
 
+    static deleteWeatherLocation(int index)async {
+      
+        try{
+          
+          var result= await DataManage.ref.get().then((value) async {
+            
+            var list=value.data()!['weatherLocations'];
+            
+            list.removeAt(index);
+
+            await DataManage.ref.update({
+              'weatherLocations':list
+            });
+
+          }).timeout(Duration(seconds: 20),onTimeout: (() {
+            return "Error";
+        }));
+      
+
+          return "ok";
+       }on FirebaseException catch(e){
+          return "Error";
+
+       }catch(e){
+
+         return "Error";
+       }
+    }
+
 
 }

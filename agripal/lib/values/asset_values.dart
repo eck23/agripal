@@ -15,3 +15,6 @@ String plant_loading="assets/lottie/plant_anim.json";
 String upload="assets/lottie/upload.json";
 String done="assets/lottie/done.json";
 String oopsie="assets/lottie/oopsie.json";
+String delete="assets/lottie/delete.json";
+String empty="assets/lottie/empty.json";
+String grass="assets/lottie/grass.json";

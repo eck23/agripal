@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 import '../datamanage/datamanage.dart';
+import '../values/asset_values.dart';
 
 class CropRecommendReportHome extends StatefulWidget {
   @override
@@ -36,6 +37,19 @@ class _CropRecommendReportHomeState extends State<CropRecommendReportHome>{
         stream: stream,
         builder: (context,AsyncSnapshot<DocumentSnapshot<Map<String,dynamic>>> snapshot) {
           if(snapshot.hasData){
+            
+            if(snapshot.data!['savedCropRecommendations'].isEmpty){
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(empty,height: 200.h,width: 200.w,repeat: false,),
+                    Text("No Reports",style: font3,)
+                  ],
+                ),
+              );
+            }
+
             return ListView.builder(
               itemCount: snapshot.data!['savedCropRecommendations'].length,
               itemBuilder: (context, index){
@@ -152,7 +166,25 @@ class _CropRecommendReportHomeState extends State<CropRecommendReportHome>{
                 );
             });
           }else{
-            return Center(child: CircularProgressIndicator(),);
+            if(snapshot.hasError){
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(oopsie,height: 200.h,width: 200.w),
+                    Text("Error",style: font3,)
+                  ],
+                ),
+              );
+            }
+
+            return Center(
+              child: Container(
+                height: 100.h,
+                width: 100.w,
+                child: Lottie.asset(plant_loading,fit: BoxFit.contain,),
+              )
+            );
           }
       },)
     );

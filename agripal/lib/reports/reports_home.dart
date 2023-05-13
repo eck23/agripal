@@ -96,7 +96,7 @@ class _ReportsHomeState extends State<ReportsHome> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text("View Report",style: GoogleFonts.josefinSans(fontSize: 15.sp,color: Colors.white),),
-                        Icon(Icons.arrow_forward_sharp,color: Colors.white,)
+                        Icon(Icons.arrow_forward_sharp,color: Colors.white,size: 18,)
                       ],
                     ),
                   ),

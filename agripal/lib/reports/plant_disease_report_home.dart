@@ -79,6 +79,20 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
         stream: stream,
         builder: (context, AsyncSnapshot<DocumentSnapshot<Map<String,dynamic>>>snapshot) {
           if(snapshot.hasData){
+
+            if(snapshot.data!['savedDiseasePredictions'].isEmpty){
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(empty,height: 200.h,width: 200.w,repeat: false,),
+                    Text("No Reports",style: font3,)
+                  ],
+                ),
+              );
+            }
+
+
             return ListView.builder(
               itemCount: snapshot.data!['savedDiseasePredictions'].length,
               itemBuilder: (context, index) {
@@ -110,7 +124,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                         width: double.infinity,
                         child: Opacity(
                           opacity: 1,
-                          child: Lottie.asset("assets/lottie/grass.json",fit: BoxFit.fill,))),
+                          child: Lottie.asset(grass,fit: BoxFit.fill,))),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -176,7 +190,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
                               ),
                                Padding(
                                  padding: EdgeInsets.only(left: 50.w),
-                                 child: TextButton.icon(icon: Icon(Icons.arrow_forward_rounded), label: Text("View Full Report",style: font3,),
+                                 child: TextButton.icon(icon: Icon(Icons.arrow_forward_rounded,size: 18,), label: Text("View Full Report",style: font3,),
                                   onPressed: ()async{
 
                                     dialogBox(context, plant_loading,false);
@@ -205,8 +219,25 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
             );
           }
           else{
+            
+            if(snapshot.hasError){
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(oopsie,height: 200.h,width: 200.w),
+                    Text("Error",style: font3,)
+                  ],
+                ),
+              );
+            }
+
             return Center(
-              child: CircularProgressIndicator(),
+              child: Container(
+                height: 100.h,
+                width: 100.w,
+                child: Lottie.asset(plant_loading,fit: BoxFit.contain,),
+              )
             );
           }
       },)
