@@ -36,7 +36,7 @@ class _PlantDiseaseState extends State<PlantDisease>{
 
         var response = await PredictPlantDisease.uploadImageToServer(image!);
 
-        await Future.delayed(const Duration(seconds: 1),(){
+        
           
           Navigator.pop(context);
           if(response!=null && response!="Error"){
@@ -45,10 +45,11 @@ class _PlantDiseaseState extends State<PlantDisease>{
 
         }else{
             
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text('Error occured')));
-          }
-        });
+        }
+        
 
       
         
@@ -180,6 +181,7 @@ class _PlantDiseaseState extends State<PlantDisease>{
               ]
             ),
             child: Column(
+              
               children: [
                 Container(
                   height: 250.h,

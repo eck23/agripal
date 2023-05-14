@@ -49,7 +49,7 @@ class _WeatherListUIState extends State<WeatherListUI> {
         
 
     }else{
-
+      ScaffoldMessenger.of(context).hideCurrentSnackBar(); 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error deleting location")));
     }
 

@@ -71,9 +71,9 @@ onSubmitClick() async{
 
      // ignore: unrelated_type_equality_checks
 
-    await Future.delayed(const Duration(seconds: 1),(){
-            Navigator.pop(context);
-          });
+   
+      Navigator.pop(context);
+          
       
      if(result== "Error"){
 
@@ -142,8 +142,8 @@ onSubmitClick() async{
                         child: AnimatedContainer(
                           height: isLogin?400.h:450.h,
                           width: 300.w,
-                          duration: const Duration(seconds: 2),
-                          curve: Curves.fastLinearToSlowEaseIn,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeIn,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20.r),
@@ -153,7 +153,7 @@ onSubmitClick() async{
                                 
                           child: AnimatedOpacity(
                             opacity: visible?1:0.0,
-                            duration: const Duration(seconds: 3),
+                            duration: const Duration(milliseconds:1000),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [

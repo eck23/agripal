@@ -8,7 +8,8 @@ class GetCrop {
    
   static findCrop({double nitrogen=0.0, double phosphorus=0.0, double potassium=0.0, double ph=0.0, double rainfall=0.0, double humidity=0.0, double temperature=0.0}) async {
     
-   
+   print(port2);
+   print(localIP);
     String url = "http://$localIP:$port2/crop_recommend?N=$nitrogen&P=$phosphorus&K=$potassium&temp=$temperature&humidity=$humidity&ph=$ph&rainfall=$rainfall" ;
 
     try {
@@ -16,7 +17,8 @@ class GetCrop {
       var response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
-
+        
+        print("success");
         return jsonDecode(response.body);
 
       } else {

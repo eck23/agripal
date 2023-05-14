@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:agripal/common_widgets/common_widgets.dart';
 import 'package:agripal/values/asset_values.dart';
+import 'package:agripal/values/fonts.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,11 +48,11 @@ class _ReportPageState extends State<ReportPage> {
     var result=await DataManage.savePlantDisease(widget.image,plantName,diseaseName);
 
     
-    await Future.delayed(Duration(seconds: 1),(){
+    
 
-        Navigator.pop(context);
+    Navigator.pop(context);
 
-    });
+    
 
     print(result);
 
@@ -64,6 +65,7 @@ class _ReportPageState extends State<ReportPage> {
             Navigator.pop(context);
           
            });
+
            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Report Saved')));
         
         }else{
@@ -84,8 +86,9 @@ class _ReportPageState extends State<ReportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amber.shade400,
-        title: Text('Report',style: GoogleFonts.dancingScript(color: Colors.black,fontSize: 25.sp,fontWeight: FontWeight.bold),),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text('Report',style: font4,),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -307,8 +310,8 @@ class _ReportPageState extends State<ReportPage> {
       ),
       floatingActionButton: widget.floatingButton?  FloatingActionButton(
         child: const Icon(Icons.save),
-        backgroundColor: Colors.amber.shade400,
-        onPressed: () =>confirmDialog(context, "Upload Report ?", ()=>uploadData()),
+        backgroundColor: Colors.amber.shade700,
+        onPressed: () =>confirmDialog(context, "Upload Report?", ()=>uploadData()),
       ):null,
     );
   }

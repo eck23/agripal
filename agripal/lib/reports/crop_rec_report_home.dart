@@ -2,6 +2,7 @@ import 'package:agripal/values/fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weather_icons/weather_icons.dart';
@@ -30,8 +31,8 @@ class _CropRecommendReportHomeState extends State<CropRecommendReportHome>{
       backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.black), 
-        backgroundColor: Colors.orange.shade400,
-        title: Text("Crop Recommendation Report",style: font7,),
+        backgroundColor: Colors.white,
+        title: Text("Crop Recommendation Report",style: GoogleFonts.raleway(fontSize: 17.sp,fontWeight: FontWeight.bold,color: Colors.black),),
       ),
       body: StreamBuilder(
         stream: stream,

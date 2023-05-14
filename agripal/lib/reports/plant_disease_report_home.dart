@@ -14,7 +14,7 @@ import '../values/asset_values.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
-import 'dart:io';
+
 
 class PlantDiseaseReportHome extends StatefulWidget {
   @override
@@ -42,7 +42,7 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
             Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ReportPage(image: image,contents: response,floatingButton: false,)));
 
          }else{
-            
+            ScaffoldMessenger.of(context).removeCurrentSnackBar();
             ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text('Error occured')));
           }
@@ -70,9 +70,9 @@ class _PlantDiseaseReportHomeState extends State<PlantDiseaseReportHome>{
       backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.green.shade400,
+        backgroundColor: Colors.white,
         elevation: 2,
-        title: Text("Plant Disease Report",style: font7,),
+        title: Text("Plant Disease Report",style: font4,),
         
       ),
       body: StreamBuilder(

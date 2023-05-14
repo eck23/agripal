@@ -47,7 +47,7 @@ class _CropRecommendState extends State<CropRecommend> {
     super.initState();
   }
 
- final _formKey = GlobalKey<FormState>();
+ final formKey = GlobalKey<FormState>();
  late Timer timer;
  bool timerEnabled=false;
 var response;
@@ -66,7 +66,7 @@ callGetCrop() async{
   response=null;
   FocusScope.of(context).unfocus();
 
-  if (_formKey.currentState!.validate()) {
+  if (formKey.currentState!.validate()) {
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Processing Data')));
   
@@ -84,7 +84,7 @@ callGetCrop() async{
    
    
    
-    Future.delayed(Duration(seconds: 1),(){
+    
       
       Navigator.pop(context);
 
@@ -93,9 +93,10 @@ callGetCrop() async{
         showDialogBox();
       }
       else{
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error occured')));
       }
-    });
+    
 
     
   }
@@ -118,23 +119,27 @@ void saveReport()async{
       'time': DateTime.now().toString()
   });
 
-  await Future.delayed(Duration(seconds: 1),(){
+  
 
-        Navigator.pop(context);
+  Navigator.pop(context);
 
-  });
+  
 
   if(result=="ok"){
     dialogBox(context, done, false);
 
-    Future.delayed(Duration(seconds: 3),(){
-      Navigator.pop(context);
-    });
+    
+      Future.delayed(const Duration(seconds: 3), () {
+        Navigator.pop(context);
+      });
+      clearAll();
 
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Report Saved')));
   
   }
   else{
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error occured')));
   }
 }
@@ -167,7 +172,7 @@ clearAll(){
         //   backgroundColor: Colors.white,
         //   body:
             Form(
-              key: _formKey,
+              key: formKey,
               child: Container(
                 height: MediaQuery.of(context).size.height *0.8,
                 width: MediaQuery.of(context).size.width ,
@@ -185,10 +190,12 @@ clearAll(){
                       fieldContainer("Enter Nitrogen",nitrogen),
                       fieldContainer("Enter Phosphorus",phosphorus),
                       fieldContainer("Enter Potassium",potassium),
+                      fieldContainer("Enter Temperature",temperature),
+                      fieldContainer("Enter Humidity",humidity),
                       fieldContainer("Enter pH",ph),
                       fieldContainer("Enter Rainfall",rainfall),
-                      fieldContainer("Enter Humidity",humidity),
-                      fieldContainer("Enter Temperature",temperature),
+                      
+                      
                      
                       // ElevatedButton(
                       //   onPressed: ()=>callGetCrop(),
